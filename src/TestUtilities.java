@@ -25,16 +25,19 @@ public class TestUtilities {
         // variables needed for menu
         int choice;
 
-
         displaymenu();
         choice = getChoice();
 
-        while (choice != 9) {
+        while (choice != 7) {
 
             switch (choice) {
                 case 0: callOpenDB();	break;
                 case 1: callAddStudentAccount(); break;
-                case 8: callCloseDB(); break;
+                case 2: callAddSchedule(); break;
+                case 3: callAddAdvisor(); break;
+                case 4: callDeleteCourse(); break;
+                case 5: callEvaluateSchedule(); break;
+                case 6: callCloseDB(); break;
                 default: System.out.println("Method not implemented at this time");
             }// switch
 
