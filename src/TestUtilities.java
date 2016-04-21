@@ -47,10 +47,14 @@ public class TestUtilities {
     }// main
 
     static void displaymenu() {
-        System.out.println("0)  openDB()");
-        System.out.println("1)  callAddStudentAccount() ");
-        System.out.println("8)  close the DB");
-        System.out.println("9)  quit");
+        System.out.println("0)  openDB");
+        System.out.println("1)  AddStudentAccount");
+        System.out.println("2)  addSchedule");
+        System.out.println("3)  addAdvisor");
+        System.out.println("4)  deleteCourse");
+        System.out.println("5)  evaluateSchedule");
+        System.out.println("6)  close the DB");
+        System.out.println("7)  quit");
     }
 
     static int getChoice() {
@@ -98,9 +102,57 @@ public class TestUtilities {
         System.out.print("Enter email: ");
         String email = keyboard.nextLine();
         int result = testObj.addStudentAccount(name, password, email);
-        System.out.println(result + " row" + (result > 1 ? "s were" : " was") + " affected") ;
+
+        printRowsAffected(result);
     }
 
+    public static void callAddSchedule()
+    {
+        System.out.print("Enter student email: ");
+        String email = keyboard.nextLine();
+        System.out.print("Enter degree (B.A. or B.S.): ");
+        String degree = keyboard.nextLine();
+        System.out.print("Enter starting semester (Fall, Spring): ");
+        String starting_semester = keyboard.nextLine();
+        System.out.print("Enter starting year: ");
+        String starting_year = keyboard.nextLine();
+        System.out.print("Enter schedule name: ");
+        String name = keyboard.nextLine();
+
+        printRowsAffected(testObj.addSchedule(email, degree, starting_semester, starting_year, name));
+    }
+
+    public static void callAddAdvisor()
+    {
+        System.out.print("Enter student email: ");
+        String student_email = keyboard.nextLine();
+        System.out.print("Enter advisor email: ");
+        String advisor_email = keyboard.nextLine();
+
+        printRowsAffected(testObj.addAdvisor(student_email, advisor_email));
+    }
+
+    public static void callDeleteCourse()
+    {
+        System.out.print("Enter department: ");
+        String dept = keyboard.nextLine();
+        System.out.print("Enter course number: ");
+        String course_number = keyboard.nextLine();
+
+        printRowsAffected(testObj.deleteCourse(dept, course_number));
+    }
+
+    public static void callEvaluateSchedule()
+    {
+        System.out.print("Enter schedule number: ");
+        String num = keyboard.nextLine();
+
+    }
+
+    private static void printRowsAffected(int result)
+    {
+        System.out.println(result + " row" + (result != 1 ? "s were" : " was") + " affected") ;
+    }
 
     private static void printResultSet(ResultSet rs)
     {
