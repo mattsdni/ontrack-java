@@ -9,7 +9,7 @@
 // You need to import the java.sql package to use JDBC methods and classes
 
 import java.sql.*;
-
+import java.util.LinkedList;
 
 /**
  * @author kenb
@@ -144,12 +144,16 @@ public class Utilities {
      * Checks to see whether the student has met the requirements for graduation
      * @return the Courses still needed for graduation
      */
-    public ResultSet evaluateSchedule(){
+    public LinkedList<String> evaluateSchedule(int schedule_id){
     	ResultSet r;
     	
     	return null;
     }
+    private ResultSet evaluateCoreCS(int id){
+    	return null;
+    }
 
+    
     /**
      * @return the conn
      */
