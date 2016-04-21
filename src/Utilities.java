@@ -139,6 +139,16 @@ public class Utilities {
             return 0;
         }
     }
+    
+    /**
+     * Checks to see whether the student has met the requirements for graduation
+     * @return the Courses still needed for graduation
+     */
+    public ResultSet evaluateSchedule(){
+    	ResultSet r;
+    	
+    	return null;
+    }
 
     /**
      * @return the conn
