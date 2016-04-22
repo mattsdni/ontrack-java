@@ -22,6 +22,7 @@ public class TestUtilities {
 
     public static void main(String[] args) throws SQLException {
 
+
         // variables needed for menu
         int choice;
 
@@ -36,7 +37,9 @@ public class TestUtilities {
                 case 2: callAddSchedule(); break;
                 case 3: callAddAdvisor(); break;
                 case 4: callDeleteCourse(); break;
-                case 5: callEvaluateSchedule(); break;
+                //case 5: callEvaluateSchedule(); break;
+                case 5: testObj.evaluateSchedule(1); break;
+
                 case 6: callCloseDB(); break;
                 default: System.out.println("Method not implemented at this time");
             }// switch

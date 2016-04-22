@@ -8,6 +8,8 @@
 
 // You need to import the java.sql package to use JDBC methods and classes
 
+import org.jasypt.util.password.StrongPasswordEncryptor;
+
 import java.sql.*;
 import java.util.LinkedList;
 
@@ -74,12 +76,13 @@ public class Utilities {
 
     public int addStudentAccount(String name, String password, String email)
     {
+        StrongPasswordEncryptor passwordEncryptor = new StrongPasswordEncryptor();
         try
         {
             PreparedStatement q = conn.prepareStatement("insert into student (name, password, email) " +
                     "VALUES (?, ?, ?)");
             q.setString(1, name);
-            q.setString(2, password);
+            q.setString(2, passwordEncryptor.encryptPassword(password));
             q.setString(3, email);
             return q.executeUpdate();
         } catch (SQLException e)
