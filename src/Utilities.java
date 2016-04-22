@@ -152,7 +152,12 @@ public class Utilities {
     private ResultSet evaluateCoreCS(int id){
     	return null;
     }
-
+    private ResultSet evaluateMath(int id){
+    	return null;
+    }
+    private boolean hasScience(int id){
+    	return false;
+    }
     
     /**
      * @return the conn
