@@ -150,10 +150,46 @@ public class Utilities {
     	return null;
     }
     private ResultSet evaluateCoreCS(int id){
-    	return null;
+    	ResultSet rset = null;
+		String sql = null;
+
+		try {
+			// create a Statement and an SQL string for the statement
+			sql = "SELECT department, course_number FROM requirements JOIN requires_course on requirements.req_number=requires_course.req_number " +
+			  "WHERE requirements.req_number = 4 and  (department, course_number) not in " +
+			  "(select department, course_number from has_course where schedule_id = ?)";
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			
+			pstmt.clearParameters();
+			pstmt.setInt(1,id); //set the 1 parameter
+			
+			rset = pstmt.executeQuery();
+		} catch (SQLException e) {
+			System.out.println("createStatement " + e.getMessage() + sql);
+		}
+
+		return rset;
     }
     private ResultSet evaluateMath(int id){
-    	return null;
+    	ResultSet rset = null;
+		String sql = null;
+
+		try {
+			// create a Statement and an SQL string for the statement
+			sql = "SELECT department, course_number FROM requirements JOIN requires_course on requirements.req_number=requires_course.req_number " +
+			  "WHERE requirements.req_number = 6 and  (department, course_number) not in " +
+			  "(select department, course_number from has_course where schedule_id = ?)";
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			
+			pstmt.clearParameters();
+			pstmt.setInt(1,id); //set the 1 parameter
+			
+			rset = pstmt.executeQuery();
+		} catch (SQLException e) {
+			System.out.println("createStatement " + e.getMessage() + sql);
+		}
+
+		return rset;
     }
     private boolean hasScience(int id){
     	return false;
