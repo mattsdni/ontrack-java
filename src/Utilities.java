@@ -142,6 +142,7 @@ public class Utilities {
     
     /**
      * Checks to see whether the student has met the requirements for graduation
+     * @param schedule_id The id of the schedule
      * @return the Courses still needed for graduation
      */
     public LinkedList<String> evaluateSchedule(int schedule_id){
@@ -181,8 +182,8 @@ public class Utilities {
     }
     /**
      * 
-     * @param id
-     * @return
+     * @param id The id of the Schedule
+     * @return A ResultSet of the CSCE courses the student still needs to take to fulfill the requirements
      */
     private ResultSet evaluateCoreCS(int id){
     	ResultSet rset = null;
@@ -207,8 +208,8 @@ public class Utilities {
     }
     /**
      * 
-     * @param id
-     * @return
+     * @param id The id of the Schedule
+     * @return A ResultSet of the math courses the student still needs to take to fulfill the requirements
      */
     private ResultSet evaluateMath(int id){
     	ResultSet rset = null;
@@ -233,8 +234,8 @@ public class Utilities {
     }
     /**
      * 
-     * @param id
-     * @return
+     * @param id The id of the schedule
+     * @return A ResultSet of possible science courses the student can take to fulfill the requirements
      */
     private ResultSet evaluateScience(int id){
     	ResultSet rset = null;
@@ -259,8 +260,8 @@ public class Utilities {
     }
     /**
      * 
-     * @param set
-     * @return
+     * @param set The ResultSet whose rows are counted
+     * @return The number of rows in set
      */
     private int rowCounter(ResultSet set){
     	// This came in handy: http://stackoverflow.com/questions/8292256/get-number-of-rows-returned-by-resultset-in-java
