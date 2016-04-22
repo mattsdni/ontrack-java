@@ -145,10 +145,45 @@ public class Utilities {
      * @return the Courses still needed for graduation
      */
     public LinkedList<String> evaluateSchedule(int schedule_id){
-    	ResultSet r;
+    	//Load the ResultSets
+    	ResultSet cs, math, science;
+    	cs = evaluateCoreCS(schedule_id);
+    	math = evaluateMath(schedule_id);
+    	science = evaluateScience(schedule_id);
+    	//Used to store statements to the user
+    	LinkedList<String> printoutList = new LinkedList<String>();
     	
-    	return null;
+    	if(rowCounter(cs) == 0){
+    		printoutList.add("You have taken all the required CSCE courses");
+    	}
+    	else {
+    		printoutList.add("Here are the CSCE courses you still need to take:");
+    		printoutList.add(cs.toString());
+    	}
+    	
+    	if(rowCounter(math) == 0){
+    		printoutList.add("You have taken all the required Math courses");
+    	}
+    	else {
+    		printoutList.add("Here are the Math courses you still need to take:");
+        	printoutList.add(math.toString());
+        }
+    	
+    	if(rowCounter(science) < 7){
+    		printoutList.add("You have taken all the required Science courses");
+    	}
+    	else {
+    		printoutList.add("Here are the Science courses you could choose from to fulfill the science requirement:");
+        	printoutList.add(science.toString());
+        }
+    	
+    	return printoutList;
     }
+    /**
+     * 
+     * @param id
+     * @return
+     */
     private ResultSet evaluateCoreCS(int id){
     	ResultSet rset = null;
 		String sql = null;
@@ -170,6 +205,11 @@ public class Utilities {
 
 		return rset;
     }
+    /**
+     * 
+     * @param id
+     * @return
+     */
     private ResultSet evaluateMath(int id){
     	ResultSet rset = null;
 		String sql = null;
@@ -191,10 +231,49 @@ public class Utilities {
 
 		return rset;
     }
-    private boolean hasScience(int id){
-    	return false;
+    /**
+     * 
+     * @param id
+     * @return
+     */
+    private ResultSet evaluateScience(int id){
+    	ResultSet rset = null;
+		String sql = null;
+
+		try {
+			// create a Statement and an SQL string for the statement
+			sql = "SELECT department, course_number FROM requirements JOIN requires_course on requirements.req_number=requires_course.req_number " +
+			  "WHERE requirements.req_number = 7 and  (department, course_number) not in " +
+			  "(select department, course_number from has_course where schedule_id = ?)";
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			
+			pstmt.clearParameters();
+			pstmt.setInt(1,id); //set the 1 parameter
+			
+			rset = pstmt.executeQuery();
+		} catch (SQLException e) {
+			System.out.println("createStatement " + e.getMessage() + sql);
+		}
+
+		return rset;
     }
-    
+    /**
+     * 
+     * @param set
+     * @return
+     */
+    private int rowCounter(ResultSet set){
+    	// This came in handy: http://stackoverflow.com/questions/8292256/get-number-of-rows-returned-by-resultset-in-java
+    	int rows = 0;
+    	try {
+			while(set.next()){
+				rows++;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+    	return rows;
+    }
     /**
      * @return the conn
      */
