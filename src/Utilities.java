@@ -162,7 +162,7 @@ public class Utilities {
     	}
     	else {
     		printoutList.add("Here are the CSCE courses you still need to take:");
-    		printoutList.add(cs.toString());
+    		printoutList.add(printResultSet(cs));
     	}
     	
     	if(rowCounter(math) == 0){
@@ -170,7 +170,7 @@ public class Utilities {
     	}
     	else {
     		printoutList.add("Here are the Math courses you still need to take:");
-        	printoutList.add(math.toString());
+        	printoutList.add(printResultSet(math));
         }
     	
     	if(rowCounter(science) < 7){
@@ -178,7 +178,7 @@ public class Utilities {
     	}
     	else {
     		printoutList.add("Here are the Science courses you could choose from to fulfill the science requirement:");
-        	printoutList.add(science.toString());
+        	printoutList.add(printResultSet(science));
         }
     	
     	return printoutList;
@@ -277,6 +277,41 @@ public class Utilities {
 			e.printStackTrace();
 		}
     	return rows;
+    }
+    /**
+     * Returns the contents of the given ResultSet in String format
+     * @param rs
+     * @return 
+     */
+    private static String printResultSet(ResultSet rs)
+    {
+    	StringBuilder sb = new StringBuilder();
+        try
+        {
+            ResultSetMetaData rsmd = rs.getMetaData();
+
+            int numberOfColumns = rsmd.getColumnCount();
+
+            for (int i = 1; i <= numberOfColumns; i++) {
+                String columnName = rsmd.getColumnName(i);
+                sb.append("%15s" + columnName);
+            }
+            sb.append("/n");
+
+            while (rs.next()) {
+                for (int i = 1; i <= numberOfColumns; i++) {
+                    String columnValue = rs.getString(i);
+                    sb.append("%15s" + columnValue);
+                }
+                sb.append("");
+            }
+
+
+        } catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+        return sb.toString();
     }
     /**
      * @return the conn
