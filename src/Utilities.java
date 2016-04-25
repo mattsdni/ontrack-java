@@ -12,6 +12,8 @@ import org.jasypt.util.password.StrongPasswordEncryptor;
 
 import java.sql.*;
 import java.util.LinkedList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * @author kenb
@@ -42,6 +44,7 @@ public class Utilities {
     {
         // Database Info
         String url = "jdbc:mysql://zoe.cs.plu.edu:3306/";
+        //String url = "jdbc:mysql://127.0.0.1:3306/";
         String db = "dt367_2016";
 
         if (username == null) username = "dt367";
@@ -76,6 +79,15 @@ public class Utilities {
 
     public int addStudentAccount(String name, String password, String email)
     {
+        Pattern r = Pattern.compile(".+@.+\\..+");
+
+        // Now create matcher object.
+        Matcher m = r.matcher(email);
+        if (!m.find())
+        {
+            return -1;
+        }
+
         StrongPasswordEncryptor passwordEncryptor = new StrongPasswordEncryptor();
         try
         {
@@ -88,7 +100,7 @@ public class Utilities {
         } catch (SQLException e)
         {
             e.printStackTrace();
-            return 0;
+            return -1;
         }
     }
 
