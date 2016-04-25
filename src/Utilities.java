@@ -212,6 +212,34 @@ public class Utilities {
     /**
      * 
      * @param id The id of the Schedule
+     * @return
+     */
+  private ResultSet evaluateCSElectives(int id){
+	  ResultSet rset = null;
+		String sql = null;
+
+		try {
+			// create a Statement and an SQL string for the statement
+			sql = "(select distinct sum(course.credits) as total_electives from has_course h join course on h.department = course.department AND h.course_number = course.course_number " +
+                  "where schedule_id=? and (h.department, h.course_number) in " +
+                        "(select department, course_number from course where course_number regexp '^(3|4)' and course.department='CSCE' and (course.department, course_number) not in (select course.department, course.course_number from course join requires_course on course.department = requires_course.department AND course.course_number = requires_course.course_number " +
+                                     " where req_number=4)))";
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			
+			pstmt.clearParameters();
+			pstmt.setInt(1,id); //set the 1 parameter
+			
+			rset = pstmt.executeQuery();
+		} catch (SQLException e) {
+			System.out.println("createStatement " + e.getMessage() + sql);
+		}
+
+		return rset;
+	  
+    }
+    /**
+     * 
+     * @param id The id of the Schedule
      * @return A ResultSet of the math courses the student still needs to take to fulfill the requirements
      */
     private ResultSet evaluateMath(int id){
