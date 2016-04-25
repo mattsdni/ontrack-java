@@ -12,6 +12,8 @@ import org.jasypt.util.password.StrongPasswordEncryptor;
 
 import java.sql.*;
 import java.util.LinkedList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * @author kenb
@@ -42,6 +44,7 @@ public class Utilities {
     {
         // Database Info
         String url = "jdbc:mysql://zoe.cs.plu.edu:3306/";
+        //String url = "jdbc:mysql://127.0.0.1:3306/";
         String db = "dt367_2016";
 
         if (username == null) username = "dt367";
@@ -76,6 +79,15 @@ public class Utilities {
 
     public int addStudentAccount(String name, String password, String email)
     {
+        Pattern r = Pattern.compile(".+@.+\\..+");
+
+        // Now create matcher object.
+        Matcher m = r.matcher(email);
+        if (!m.find())
+        {
+            return -1;
+        }
+
         StrongPasswordEncryptor passwordEncryptor = new StrongPasswordEncryptor();
         try
         {
@@ -88,10 +100,21 @@ public class Utilities {
         } catch (SQLException e)
         {
             e.printStackTrace();
-            return 0;
+            return -1;
         }
     }
 
+    /**
+     * Adds the following parameters to a Student Schedule
+     * @param email
+     * @param degree
+     * @param starting_semester
+     * @param starting_year
+     * @param name
+     * @return (1) the row count for SQL Data Manipulation Language (DML) statements
+     *         (2) 0 for SQL statements that return nothing
+     *         (3) -1 for failure
+     */
     public int addSchedule(String email, String degree, String starting_semester, String starting_year, String name)
     {
         try
@@ -106,11 +129,18 @@ public class Utilities {
             return q.executeUpdate();
         } catch (SQLException e)
         {
-            e.printStackTrace();
-            return 0;
+            return -1;
         }
     }
 
+    /**
+     * Adds an advisor email to a student row in db
+     * @param student_email
+     * @param advisor_email
+     * @return (1) the row count for SQL Data Manipulation Language (DML) statements
+     *         (2) 0 for SQL statements that return nothing
+     *         (3) -1 for failure
+     */
     public int addAdvisor(String student_email, String advisor_email)
     {
         try
@@ -122,11 +152,18 @@ public class Utilities {
             return q.executeUpdate();
         } catch (SQLException e)
         {
-            e.printStackTrace();
-            return 0;
+            return -1;
         }
     }
 
+    /**
+     * Deletes a course from course table in db
+     * @param dept
+     * @param course_number
+     * @return (1) the row count for SQL Data Manipulation Language (DML) statements
+     *         (2) 0 for SQL statements that return nothing
+     *         (3) -1 for failure
+     */
     public int deleteCourse(String dept, String course_number)
     {
         try
@@ -138,8 +175,7 @@ public class Utilities {
             return q.executeUpdate();
         } catch (SQLException e)
         {
-            e.printStackTrace();
-            return 0;
+            return -1;
         }
     }
     
@@ -161,30 +197,45 @@ public class Utilities {
     		printoutList.add("You have taken all the required CSCE courses");
     	}
     	else {
-    		printoutList.add("Here are the CSCE courses you still need to take:");
-    		printoutList.add(printResultSet(cs));
+            try {
+                printoutList.add("Here are the CSCE courses you still need to take:");
+                printoutList.add(resultSetString(cs));
+            }catch(NullPointerException e)
+            {
+                printoutList.add("Something went wrong evaluating cs")
+            }
     	}
     	
     	if(rowCounter(math) == 0){
     		printoutList.add("You have taken all the required Math courses");
     	}
     	else {
-    		printoutList.add("Here are the Math courses you still need to take:");
-        	printoutList.add(printResultSet(math));
+            try {
+    		    printoutList.add("Here are the Math courses you still need to take:");
+        	    printoutList.add(resultSetString(math));
+            }catch(NullPointerException e)
+            {
+                printoutList.add("Something went wrong evaluating math")
+            }
         }
     	
     	if(rowCounter(science) < 7){
     		printoutList.add("You have taken all the required Science courses");
     	}
     	else {
-    		printoutList.add("Here are the Science courses you could choose from to fulfill the science requirement:");
-        	printoutList.add(printResultSet(science));
+            try {
+    		    printoutList.add("Here are the Science courses you could choose from to fulfill the science requirement:");
+        	    printoutList.add(resultSetString(science));
+            }catch(NullPointerException e)
+            {
+                printoutList.add("Something went wrong evaluating Science")
+            }
         }
     	
     	return printoutList;
     }
     /**
-     * 
+     * Queries database for CS courses the student still has to take
      * @param id The id of the Schedule
      * @return A ResultSet of the CSCE courses the student still needs to take to fulfill the requirements
      */
@@ -204,13 +255,13 @@ public class Utilities {
 			
 			rset = pstmt.executeQuery();
 		} catch (SQLException e) {
-			System.out.println("createStatement " + e.getMessage() + sql);
+			return null;
 		}
 
 		return rset;
     }
     /**
-     * 
+     * Queries database for math courses the student still has to take
      * @param id The id of the Schedule
      * @return
      */
@@ -258,13 +309,13 @@ public class Utilities {
 			
 			rset = pstmt.executeQuery();
 		} catch (SQLException e) {
-			System.out.println("createStatement " + e.getMessage() + sql);
+			return null;
 		}
 
 		return rset;
     }
     /**
-     * 
+     * Queries database for Science courses the student still has to take
      * @param id The id of the schedule
      * @return A ResultSet of possible science courses the student can take to fulfill the requirements
      */
@@ -284,15 +335,16 @@ public class Utilities {
 			
 			rset = pstmt.executeQuery();
 		} catch (SQLException e) {
-			System.out.println("createStatement " + e.getMessage() + sql);
+			return null;
 		}
 
 		return rset;
     }
     /**
-     * 
+     * Counts the number of rows in a result set
      * @param set The ResultSet whose rows are counted
      * @return The number of rows in set
+     *          -1 if SQLException
      */
     private int rowCounter(ResultSet set){
     	// This came in handy: http://stackoverflow.com/questions/8292256/get-number-of-rows-returned-by-resultset-in-java
@@ -302,16 +354,16 @@ public class Utilities {
 				rows++;
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			return -1;
 		}
     	return rows;
     }
     /**
      * Returns the contents of the given ResultSet in String format
      * @param rs
-     * @return 
+     * @return String representation of ResultSet
      */
-    private static String printResultSet(ResultSet rs)
+    private String resultSetString(ResultSet rs)
     {
     	StringBuilder sb = new StringBuilder();
         try
@@ -337,7 +389,7 @@ public class Utilities {
 
         } catch (SQLException e)
         {
-            e.printStackTrace();
+            return "Invalid Resultset in resultSetString"
         }
         return sb.toString();
     }
