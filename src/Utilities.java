@@ -361,7 +361,7 @@ public class Utilities {
 
         } catch (SQLException e)
         {
-            return "Invalid Resultset in printResultSet"
+            return "Invalid Resultset in resultSetString"
         }
         return sb.toString();
     }
