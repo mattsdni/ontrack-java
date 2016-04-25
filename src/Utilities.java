@@ -202,7 +202,7 @@ public class Utilities {
                 printoutList.add(resultSetString(cs));
             }catch(NullPointerException e)
             {
-                printoutList.add("Something went wrong evaluating cs")
+                printoutList.add("Something went wrong evaluating cs");
             }
     	}
     	
@@ -215,7 +215,7 @@ public class Utilities {
         	    printoutList.add(resultSetString(math));
             }catch(NullPointerException e)
             {
-                printoutList.add("Something went wrong evaluating math")
+                printoutList.add("Something went wrong evaluating math");
             }
         }
     	
@@ -228,7 +228,7 @@ public class Utilities {
         	    printoutList.add(resultSetString(science));
             }catch(NullPointerException e)
             {
-                printoutList.add("Something went wrong evaluating Science")
+                printoutList.add("Something went wrong evaluating Science");
             }
         }
     	
@@ -389,7 +389,7 @@ public class Utilities {
 
         } catch (SQLException e)
         {
-            return "Invalid Resultset in resultSetString"
+            return "Invalid Resultset in resultSetString";
         }
         return sb.toString();
     }
