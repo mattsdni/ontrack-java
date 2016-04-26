@@ -1,5 +1,5 @@
 package ontrack; /**
- * This program is used to test the ontrack.Utilities class
+ * This program is used to test the Utilities class
  *
  * sources:
  *  http://www.java2s.com/Code/Java/Database-SQL-JDBC/Outputdatafromtable.htm
@@ -7,6 +7,7 @@ package ontrack; /**
 
 // You need to import the java.sql package to use JDBC
 import java.sql.*;
+import java.util.LinkedList;
 import java.util.Scanner;
 
 /**
@@ -16,7 +17,7 @@ import java.util.Scanner;
 public class TestUtilities {
 
     // Global variables
-    static Utilities testObj = new Utilities();       // ontrack.Utilities object for testing
+    static Utilities testObj = new Utilities();       // Utilities object for testing
     static Scanner keyboard = new Scanner(System.in); // standard input
 
     public static void main(String[] args) throws SQLException {
@@ -36,9 +37,7 @@ public class TestUtilities {
                 case 2: callAddSchedule(); break;
                 case 3: callAddAdvisor(); break;
                 case 4: callDeleteCourse(); break;
-                //case 5: callEvaluateSchedule(); break;
-                case 5: testObj.evaluateSchedule(1); break;
-
+                case 5: callEvaluateSchedule(); break;
                 case 6: callCloseDB(); break;
                 default: System.out.println("Method not implemented at this time");
             }// switch
@@ -150,7 +149,12 @@ public class TestUtilities {
     public static void callEvaluateSchedule()
     {
         System.out.print("Enter schedule number: ");
-        String num = keyboard.nextLine();
+        int num = keyboard.nextInt();
+        LinkedList<String> l =  testObj.evaluateSchedule(num);
+        for (String s : l)
+        {
+            System.out.println(s);
+        }
 
     }
 

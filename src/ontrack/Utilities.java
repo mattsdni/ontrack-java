@@ -99,7 +99,6 @@ public class Utilities {
             return q.executeUpdate();
         } catch (SQLException e)
         {
-            e.printStackTrace();
             return -1;
         }
     }
@@ -186,10 +185,10 @@ public class Utilities {
      */
     public LinkedList<String> evaluateSchedule(int schedule_id){
     	//Load the ResultSets
-    	ResultSet cs, math, science;
+    	ResultSet cs, math;
     	cs = evaluateCoreCS(schedule_id);
     	math = evaluateMath(schedule_id);
-    	science = evaluateScience(schedule_id);
+    	int science = evaluateScience(schedule_id);
     	//Used to store statements to the user
     	LinkedList<String> printoutList = new LinkedList<String>();
     	
@@ -219,17 +218,11 @@ public class Utilities {
             }
         }
     	
-    	if(rowCounter(science) < 7){
+    	if(science <= 0){
     		printoutList.add("You have taken all the required Science courses");
     	}
     	else {
-            try {
-    		    printoutList.add("Here are the Science courses you could choose from to fulfill the science requirement:");
-        	    printoutList.add(resultSetString(science));
-            }catch(NullPointerException e)
-            {
-                printoutList.add("Something went wrong evaluating Science");
-            }
+            printoutList.add("You have not satisfied the year of lab science requirement");
         }
     	
     	return printoutList;
@@ -319,26 +312,33 @@ public class Utilities {
      * @param id The id of the schedule
      * @return A ResultSet of possible science courses the student can take to fulfill the requirements
      */
-    private ResultSet evaluateScience(int id){
+    private int evaluateScience(int id){
     	ResultSet rset = null;
 		String sql = null;
-
+        int credits;
 		try {
 			// create a Statement and an SQL string for the statement
-			sql = "SELECT department, course_number FROM requirements JOIN requires_course on requirements.req_number=requires_course.req_number " +
-			  "WHERE requirements.req_number = 7 and  (department, course_number) not in " +
-			  "(select department, course_number from has_course where schedule_id = ?)";
+			sql = "(select (select num_credits from requirements " +
+                    "where requirements.req_number=7)-sum(credits) as credits from course join " +
+                    "  (select department, course_number from requirements " +
+                    "    JOIN requires_course on requirements.req_number=requires_course.req_number " +
+                    "  where requirements.req_number=7 and (department, course_number) IN " +
+                    "                                      (select has_course.department, has_course.course_number " +
+                    "                                       from has_course where schedule_id=?)) x " +
+                    "    on (x.department, x.course_number)= " +
+                    "       (course.department, course.course_number))";
 			PreparedStatement pstmt = conn.prepareStatement(sql);
 			
 			pstmt.clearParameters();
 			pstmt.setInt(1,id); //set the 1 parameter
 			
 			rset = pstmt.executeQuery();
-		} catch (SQLException e) {
-			return null;
+            credits = Integer.parseInt(rset.getString(1));
+            return credits;
+        } catch (SQLException e) {
+			return -1;
 		}
 
-		return rset;
     }
     /**
      * Counts the number of rows in a result set
