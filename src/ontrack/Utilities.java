@@ -193,6 +193,7 @@ public class Utilities {
     	ResultSet cs, math;
     	cs = evaluateCoreCS(schedule_id);
     	math = evaluateMath(schedule_id);
+    	int CSElectives = evaluateCSElectives(schedule_id);
     	int science = evaluateScience(schedule_id);
     	//Used to store statements to the user
     	LinkedList<String> printoutList = new LinkedList<String>();
@@ -209,6 +210,12 @@ public class Utilities {
                 printoutList.add("Something went wrong evaluating cs");
             }
     	}
+    	if(CSElectives >= 12){
+    		printoutList.add("You have taken all the required CS Electives");
+    	}
+    	else {
+            printoutList.add("You have not taken enough CS Electives");
+        }
     	
     	if(rowCounter(math) == 0){
     		printoutList.add("You have taken all the required Math courses");
@@ -263,10 +270,10 @@ public class Utilities {
      * @param id The id of the Schedule
      * @return rset
      */
-  private ResultSet evaluateCSElectives(int id){
+  private int evaluateCSElectives(int id){
 	  ResultSet rset = null;
 		String sql = null;
-
+		int credits = 0;
 		try {
 			// create a Statement and an SQL string for the statement
 			sql = "(select distinct sum(course.credits) as total_electives from has_course h join course on h.department = course.department AND h.course_number = course.course_number " +
@@ -276,14 +283,15 @@ public class Utilities {
 			PreparedStatement pstmt = conn.prepareStatement(sql);
 			
 			pstmt.clearParameters();
-			pstmt.setInt(1,id); //set the 1 parameter
+			pstmt.setInt(1,id); //set the 1st parameter
 			
+			 
 			rset = pstmt.executeQuery();
+			credits = Integer.parseInt(rset.getString(1));
 		} catch (SQLException e) {
 			System.out.println("createStatement " + e.getMessage() + sql);
 		}
-
-		return rset;
+		return credits;
 	  
     }
     /**
@@ -389,7 +397,7 @@ public class Utilities {
                     String columnValue = rs.getString(i);
                     sb.append("\t" + columnValue);
                 }
-                sb.append("");
+                sb.append("\n");
             }
 
         } catch (SQLException e)
