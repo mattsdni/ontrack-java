@@ -287,9 +287,11 @@ public class Utilities {
 			
 			 
 			rset = pstmt.executeQuery();
+            rset.next();
 			credits = Integer.parseInt(rset.getString(1));
 		} catch (SQLException e) {
 			System.out.println("createStatement " + e.getMessage() + sql);
+            return -1;
 		}
 		return credits;
 	  
