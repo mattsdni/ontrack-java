@@ -263,7 +263,7 @@ public class Utilities {
     /**
      * Queries database for math courses the student still has to take
      * @param id The id of the Schedule
-     * @return
+     * @return rset
      */
   private ResultSet evaluateCSElectives(int id){
 	  ResultSet rset = null;
