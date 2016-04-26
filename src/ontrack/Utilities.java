@@ -425,7 +425,7 @@ public class Utilities {
         if(!(courseNumber.length() == 3 || courseNumber.length() == 4)){
             return -1;
         }
-        if(!courseDepartment.matches("CSCE|MATH|PHYS|CHEM|BIOL|GEOL")){
+        if(!courseDepartment.matches("CSCE|MATH|PHYS|CHEM|BIOL|GEOS")){
             return -1;
         }
         Pattern regDepartment = Pattern.compile("^[a-zA-Z]{4}");
