@@ -1,5 +1,5 @@
-/**
- * This program is used to test the Utilities class
+package ontrack; /**
+ * This program is used to test the ontrack.Utilities class
  *
  * sources:
  *  http://www.java2s.com/Code/Java/Database-SQL-JDBC/Outputdatafromtable.htm
@@ -7,7 +7,6 @@
 
 // You need to import the java.sql package to use JDBC
 import java.sql.*;
-import java.util.LinkedList;
 import java.util.Scanner;
 
 /**
@@ -17,7 +16,7 @@ import java.util.Scanner;
 public class TestUtilities {
 
     // Global variables
-    static Utilities testObj = new Utilities();       // Utilities object for testing
+    static Utilities testObj = new Utilities();       // ontrack.Utilities object for testing
     static Scanner keyboard = new Scanner(System.in); // standard input
 
     public static void main(String[] args) throws SQLException {

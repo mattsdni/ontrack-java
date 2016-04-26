@@ -1,4 +1,4 @@
-/**
+package ontrack; /**
  * This class provides some basic methods for accessing a MySQL DB.
  * It uses Java JDBC and MySQL JDBC driver, mysql-connector-java-5.1.18-bin.jar
  * to open an modify the DB.
@@ -407,4 +407,4 @@ public class Utilities {
         this.conn = conn;
     }
 
-}// Utilities class
+}// ontrack.Utilities class
