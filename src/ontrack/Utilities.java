@@ -1,4 +1,5 @@
-package ontrack; /**
+package ontrack;
+/**
  * This class provides some basic methods for accessing a MySQL DB.
  * It uses Java JDBC and MySQL JDBC driver, mysql-connector-java-5.1.18-bin.jar
  * to open an modify the DB.
@@ -165,6 +166,10 @@ public class Utilities {
      */
     public int deleteCourse(String dept, String course_number)
     {
+        if(evaluateCourseString(dept, course_number) == -1){
+            //invalid course inputted
+            return -1;
+        }
         try
         {
             PreparedStatement q = conn.prepareStatement("DELETE FROM course " +
@@ -405,6 +410,38 @@ public class Utilities {
      */
     public void setConn(Connection conn) {
         this.conn = conn;
+    }
+
+    /**
+     * Evaluates the input for adding a course to determine if the input is valid
+     * @param courseDepartment the department for the course
+     * @param courseNumber the number for the course
+     * @return 1 if the course department and course number are valid, otherwise -1
+     */
+    public int evaluateCourseString(String courseDepartment, String courseNumber){
+        if(courseDepartment.length() != 4){
+            return -1;
+        }
+        if(!(courseNumber.length() == 3 || courseNumber.length() == 4)){
+            return -1;
+        }
+        if(!courseDepartment.matches("CSCE|MATH|PHYS|CHEM|BIOL|GEOS")){
+            return -1;
+        }
+        Pattern regDepartment = Pattern.compile("^[a-zA-Z]{4}");
+        Matcher m = regDepartment.matcher(courseDepartment);
+        if (!m.find())
+        {
+            return -1;
+        }
+        /*evaluate courseNumber*/
+        Pattern  regNum = Pattern.compile("\\d{3}[abAB]?$");
+        m = regNum.matcher(courseNumber);
+        if (!m.find())
+        {
+            return -1;
+        }
+        return 1;
     }
 
 }// ontrack.Utilities class
