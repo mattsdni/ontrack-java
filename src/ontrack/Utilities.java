@@ -387,7 +387,6 @@ public class Utilities {
             while (rs.next()) {
                 for (int i = 1; i <= numberOfColumns; i++) {
                     String columnValue = rs.getString(i);
-                    System.out.println(columnValue);
                     sb.append("\t" + columnValue);
                 }
                 sb.append("");
