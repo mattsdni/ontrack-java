@@ -355,6 +355,7 @@ public class Utilities {
     	// This came in handy: http://stackoverflow.com/questions/8292256/get-number-of-rows-returned-by-resultset-in-java
     	int rows = 0;
     	try {
+    		set.beforeFirst();
 			while(set.next()){
 				rows++;
 			}
@@ -373,24 +374,24 @@ public class Utilities {
     	StringBuilder sb = new StringBuilder();
         try
         {
+        	rs.beforeFirst();
             ResultSetMetaData rsmd = rs.getMetaData();
 
             int numberOfColumns = rsmd.getColumnCount();
 
-            for (int i = 1; i <= numberOfColumns; i++) {
+           for (int i = 1; i <= numberOfColumns; i++) {
                 String columnName = rsmd.getColumnName(i);
-                sb.append("%15s" + columnName);
+                sb.append("\t" + columnName);
             }
-            sb.append("/n");
-
+            sb.append("\n");
             while (rs.next()) {
                 for (int i = 1; i <= numberOfColumns; i++) {
                     String columnValue = rs.getString(i);
-                    sb.append("%15s" + columnValue);
+                    System.out.println(columnValue);
+                    sb.append("\t" + columnValue);
                 }
                 sb.append("");
             }
-
 
         } catch (SQLException e)
         {
