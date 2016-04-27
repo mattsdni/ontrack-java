@@ -1,17 +1,18 @@
 package ontrack; /**
  * This program is used to test the Utilities class
- *
+ * <p>
  * sources:
- *  http://www.java2s.com/Code/Java/Database-SQL-JDBC/Outputdatafromtable.htm
+ * http://www.java2s.com/Code/Java/Database-SQL-JDBC/Outputdatafromtable.htm
  */
 
 // You need to import the java.sql package to use JDBC
+
 import java.sql.*;
 import java.util.LinkedList;
 import java.util.Scanner;
 
 /**
- * @author kenb
+ * @authors Matt Dennie, Jeoff V, Phillip P, Joseph B
  *
  */
 public class TestUtilities {
@@ -32,14 +33,29 @@ public class TestUtilities {
         while (choice != 7) {
 
             switch (choice) {
-                case 0: callOpenDB();	break;
-                case 1: callAddStudentAccount(); break;
-                case 2: callAddSchedule(); break;
-                case 3: callAddAdvisor(); break;
-                case 4: callDeleteCourse(); break;
-                case 5: callEvaluateSchedule(); break;
-                case 6: callCloseDB(); break;
-                default: System.out.println("Method not implemented at this time");
+                case 0:
+                    callOpenDB();
+                    break;
+                case 1:
+                    callAddStudentAccount();
+                    break;
+                case 2:
+                    callAddSchedule();
+                    break;
+                case 3:
+                    callAddAdvisor();
+                    break;
+                case 4:
+                    callDeleteCourse();
+                    break;
+                case 5:
+                    callEvaluateSchedule();
+                    break;
+                case 6:
+                    callCloseDB();
+                    break;
+                default:
+                    System.out.println("Method not implemented at this time");
             }// switch
 
             System.out.println();
@@ -50,6 +66,9 @@ public class TestUtilities {
 
     }// main
 
+    /**
+     * Prints out the menu
+     */
     static void displaymenu() {
         System.out.println("0)  openDB");
         System.out.println("1)  AddStudentAccount");
@@ -61,6 +80,11 @@ public class TestUtilities {
         System.out.println("7)  quit");
     }
 
+    /**
+     *  Gets the users number choice
+     *  corresponds to the menu
+     * @return i, the number entered by the user
+     */
     static int getChoice() {
         int i = -1;
         try {
@@ -71,14 +95,16 @@ public class TestUtilities {
                 System.out.print("Please enter an integer between 0-9: ");
                 i = Integer.parseInt(keyboard.nextLine());
             }
-        }catch (NumberFormatException e) {
+        } catch (NumberFormatException e) {
             System.out.println("I SAID AN INTEGER!!!!");
         }
 
         return i;
     }
 
-    // open the default open database;
+    /**
+     * open the default open database;
+     */
     public static void callOpenDB() {
         System.out.print("The value of testObj.conn before opening the DB: ");
         System.out.println(testObj.getConn());
@@ -87,7 +113,9 @@ public class TestUtilities {
         System.out.println(testObj.getConn());
     }
 
-    // close the database;
+    /**
+     * Closes the database
+     */
     public static void callCloseDB() {
         System.out.print("The value of testObj.conn before closing the DB: ");
         System.out.println(testObj.getConn());
@@ -97,8 +125,10 @@ public class TestUtilities {
     }
 
 
-    public static void callAddStudentAccount()
-    {
+    /**
+     * Calls addStudentAccount from Utilities class
+     */
+    public static void callAddStudentAccount() {
         System.out.print("Enter name: ");
         String name = keyboard.nextLine();
         System.out.print("Enter password: ");
@@ -110,8 +140,10 @@ public class TestUtilities {
         printRowsAffected(result);
     }
 
-    public static void callAddSchedule()
-    {
+    /**
+     * Calls addSchedule from Utilities class
+     */
+    public static void callAddSchedule() {
         System.out.print("Enter student email: ");
         String email = keyboard.nextLine();
         System.out.print("Enter degree (B.A. or B.S.): ");
@@ -126,8 +158,10 @@ public class TestUtilities {
         printRowsAffected(testObj.addSchedule(email, degree, starting_semester, starting_year, name));
     }
 
-    public static void callAddAdvisor()
-    {
+    /**
+     * Calls addAdvisor from Utilities class
+     */
+    public static void callAddAdvisor() {
         System.out.print("Enter student email: ");
         String student_email = keyboard.nextLine();
         System.out.print("Enter advisor email: ");
@@ -136,8 +170,10 @@ public class TestUtilities {
         printRowsAffected(testObj.addAdvisor(student_email, advisor_email));
     }
 
-    public static void callDeleteCourse()
-    {
+    /**
+     * Calls deleteCourse from Utilities class
+     */
+    public static void callDeleteCourse() {
         System.out.print("Enter department: ");
         String dept = keyboard.nextLine();
         System.out.print("Enter course number: ");
@@ -146,27 +182,33 @@ public class TestUtilities {
         printRowsAffected(testObj.deleteCourse(dept, course_number));
     }
 
-    public static void callEvaluateSchedule()
-    {
+    /**
+     * Calls evaluateSchedule in Utilities class
+     */
+    public static void callEvaluateSchedule() {
         System.out.print("Enter schedule number: ");
         int num = keyboard.nextInt();
-        LinkedList<String> l =  testObj.evaluateSchedule(num);
-        for (String s : l)
-        {
+        LinkedList<String> l = testObj.evaluateSchedule(num);
+        for (String s : l) {
             System.out.println(s);
         }
 
     }
 
-    private static void printRowsAffected(int result)
-    {
-        System.out.println(result + " row" + (result != 1 ? "s were" : " was") + " affected") ;
+    /**
+     * Prints number of rows affected according to the integer passed in
+     * @param result
+     */
+    private static void printRowsAffected(int result) {
+        System.out.println(result + " row" + (result != 1 ? "s were" : " was") + " affected");
     }
 
-    private static void printResultSet(ResultSet rs)
-    {
-        try
-        {
+    /**
+     * Prints out a formatted version of the result set to stdout
+     * @param rs
+     */
+    private static void printResultSet(ResultSet rs) {
+        try {
             ResultSetMetaData rsmd = rs.getMetaData();
 
             int numberOfColumns = rsmd.getColumnCount();
@@ -186,8 +228,7 @@ public class TestUtilities {
             }
 
 
-        } catch (SQLException e)
-        {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
 
