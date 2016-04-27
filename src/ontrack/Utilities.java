@@ -119,7 +119,8 @@ public class Utilities {
     {
         try
         {
-            PreparedStatement q = conn.prepareStatement("INSERT INTO schedule (student_email, degree, starting_semester, starting_year, name) " +
+            PreparedStatement q = conn.prepareStatement("INSERT INTO schedule " +
+                    "(student_email, degree, starting_semester, starting_year, name) " +
                     "VALUES (?,?,?,?,?)");
             q.setString(1, email);
             q.setString(2, degree);
@@ -250,7 +251,8 @@ public class Utilities {
 
 		try {
 			// create a Statement and an SQL string for the statement
-			sql = "SELECT department, course_number FROM requirements JOIN requires_course on requirements.req_number=requires_course.req_number " +
+			sql = "SELECT department, course_number " +
+                    "FROM requirements JOIN requires_course on requirements.req_number=requires_course.req_number " +
 			  "WHERE requirements.req_number = 4 and  (department, course_number) not in " +
 			  "(select department, course_number from has_course where schedule_id = ?)";
 			PreparedStatement pstmt = conn.prepareStatement(sql);
@@ -276,9 +278,16 @@ public class Utilities {
 		int credits = 0;
 		try {
 			// create a Statement and an SQL string for the statement
-			sql = "(select distinct sum(course.credits) as total_electives from has_course h join course on h.department = course.department AND h.course_number = course.course_number " +
+			sql = "(select distinct sum(course.credits) as total_electives " +
+                    "from has_course h join course on h.department = course.department " +
+                    "AND h.course_number = course.course_number " +
                   "where schedule_id=? and (h.department, h.course_number) in " +
-                        "(select department, course_number from course where course_number regexp '^(3|4)' and course.department='CSCE' and (course.department, course_number) not in (select course.department, course.course_number from course join requires_course on course.department = requires_course.department AND course.course_number = requires_course.course_number " +
+                        "(select department, course_number from course " +
+                    "where course_number regexp '^(3|4)' and course.department='CSCE' " +
+                    "and (course.department, course_number) not in " +
+                    "(select course.department, course.course_number " +
+                    "from course join requires_course on course.department = requires_course.department " +
+                    "AND course.course_number = requires_course.course_number " +
                                      " where req_number=4)))";
 			PreparedStatement pstmt = conn.prepareStatement(sql);
 			
@@ -316,7 +325,8 @@ public class Utilities {
 
 		try {
 			// create a Statement and an SQL string for the statement
-			sql = "SELECT department, course_number FROM requirements JOIN requires_course on requirements.req_number=requires_course.req_number " +
+			sql = "SELECT department, course_number " +
+                    "FROM requirements JOIN requires_course on requirements.req_number=requires_course.req_number " +
 			  "WHERE requirements.req_number = 6 and  (department, course_number) not in " +
 			  "(select department, course_number from has_course where schedule_id = ?)";
 			PreparedStatement pstmt = conn.prepareStatement(sql);
