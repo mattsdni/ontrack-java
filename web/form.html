@@ -1,0 +1,72 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <title>Insert title here</title>
+
+    <!-- Global CSS Sheet -->
+    <link href="css/landing.css" rel="stylesheet"/>
+</head>
+<body>
+<h2>Please Enter the Following Information</h2>
+<form action="complexFormProcess.jsp">
+    <table>
+        <tr>
+            <td>Name:</td>
+            <td><input type="text" name="name_field"></td>
+        </tr>
+        <tr>
+            <td>Address:</td>
+            <td><input type="text" name="addr_field"></td>
+        </tr>
+        <tr>
+            <td>City:</td>
+            <td><input type="text" name="city_field" value="Tacoma">
+            </td>
+        </tr>
+        <tr>
+            <td>State:</td>
+            <td><input type="text" name="state_field" size="2"
+                       maxlength="2" value="WA"></td>
+        </tr>
+        <tr>
+            <td>Zip:</td>
+            <td><input type="text" name="zip_field" size="5" maxlength="5">
+            </td>
+        </tr>
+    </table>
+
+    <p> </p>
+    Favorite color: <input type="radio" name="fav_color" value="b">
+    Blue <input type="radio" name="fav_color" value="g"> Green <input
+        type="radio" name="fav_color" value="r"> Red <input
+        type="radio" name="fav_color" value="y"> Yellow
+
+    <p> </p>
+    Your pet's name is: <select name="pet_name" size="1">
+    <option value="Rover">Rover</option>
+    <option value="Spot">Spot</option>
+    <option value="Spock">Spock</option>
+    <option value="Princess">Princess</option>
+</select>
+
+
+    <p> </p>
+    Select one or more of the following toppings for your pizza:<br>
+    <input type="checkbox" name="toppings" value="Extra Cheese"> Extra Cheese <br />
+    <input type="checkbox" name="toppings" value="Pepperoni"> Pepperoni      <br />
+    <input type="checkbox" name="toppings" value="Mushrooms"> Mushrooms     <br />
+    <input type="checkbox" name="toppings" value="Onions"> Onions         <br />
+    <input type="checkbox" name="toppings" value="Olives"> Olives          <br />
+
+    <p></p>
+    <b>General comments?</b><br />
+    <textarea name="comments" rows="9" cols="60"></textarea>
+
+    <p></p>
+    <input type="submit" value="Submit Info">
+
+</form>
+</body>
+</html>
