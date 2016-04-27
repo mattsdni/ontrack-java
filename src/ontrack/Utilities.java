@@ -287,8 +287,17 @@ public class Utilities {
 			
 			 
 			rset = pstmt.executeQuery();
+
             rset.next();
-			credits = Integer.parseInt(rset.getString(1));
+
+            try
+            {
+                credits = Integer.parseInt(rset.getString(1));
+            }
+            catch (Exception e)
+            {
+                return -1;
+            }
 		} catch (SQLException e) {
 			System.out.println("createStatement " + e.getMessage() + sql);
             return -1;
@@ -348,7 +357,15 @@ public class Utilities {
 			pstmt.setInt(1,id); //set the 1 parameter
 			
 			rset = pstmt.executeQuery();
-            credits = Integer.parseInt(rset.getString(1));
+            rset.next();
+            try
+            {
+                credits = Integer.parseInt(rset.getString(1));
+            }
+            catch (Exception e)
+            {
+                return 1; //needs to be positive since this is how many lab sci credits you still need to take
+            }
             return credits;
         } catch (SQLException e) {
 			return -1;
