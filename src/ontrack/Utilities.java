@@ -34,10 +34,8 @@ public class Utilities {
         openDB(null, null);
     }
 
-    /******************** 1 Write and Test ********************************
-     * Overload the open method that opens a MySQL DB with the user name and
-     * password given as input.
-     *
+    /**
+     * Opens the database
      * @param username is a String that is the DB account username
      * @param password is a String that is the password the account
      */
@@ -45,7 +43,6 @@ public class Utilities {
     {
         // Database Info
         String url = "jdbc:mysql://zoe.cs.plu.edu:3306/";
-        //String url = "jdbc:mysql://127.0.0.1:3306/";
         String db = "dt367_2016";
 
         if (username == null) username = "dt367";
