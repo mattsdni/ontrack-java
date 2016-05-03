@@ -12,7 +12,7 @@ import java.util.LinkedList;
 import java.util.Scanner;
 
 /**
- * @authors Matt Dennie, Jeoff V, Phillip P, Joseph B
+ * @authors Matt Dennie, Jeoff V, Philip P, Joseph B
  *
  */
 public class TestUtilities {
@@ -88,11 +88,11 @@ public class TestUtilities {
     static int getChoice() {
         int i = -1;
         try {
-            System.out.print("Please enter an integer between 0-9: ");
+            System.out.print("Please enter an integer between 0-7: ");
             i = Integer.parseInt(keyboard.nextLine());
             while (i < 0 || i > 9) {
                 System.out.println();
-                System.out.print("Please enter an integer between 0-9: ");
+                System.out.print("Please enter an integer between 0-7: ");
                 i = Integer.parseInt(keyboard.nextLine());
             }
         } catch (NumberFormatException e) {
