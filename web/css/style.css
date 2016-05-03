@@ -1,0 +1,57 @@
+/* Custom Stylesheet */
+/**
+ * Use this file to override Materialize files so you can update
+ * the core Materialize files in the future
+ *
+ * Made By MaterializeCSS.com
+ */
+
+
+
+
+.icon-block {
+    padding: 0 15px;
+}
+.icon-block .material-icons {
+    font-size: inherit;
+}
+
+.side-bar {
+    height: 90vh;
+    overflow: scroll;
+}
+
+.center-text {
+    text-align: center;
+}
+
+.right-text {
+    text-align: right;
+}
+
+.semesterselected {
+    outline: 5px solid #42a5f5;
+}
+
+.semester {
+    padding-right: 20px;
+}
+.center-btn { text-align: right }
+
+
+.cardpad {
+    padding-left: .3rem;
+    padding-right: .3rem;
+}
+
+@media screen and (min-width: 992px) {
+    .modal {
+        width: 40%;
+    }
+}
+
+@media only screen and (min-width: 993px) {
+    .container {
+        width: 85%;
+    }
+}
