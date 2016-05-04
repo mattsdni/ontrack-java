@@ -1,6 +1,6 @@
 <jsp:include page="header.jsp" />
 
-<h1>Welcome Back Student</h1>
+<h1>Welcome Back <%= session.getAttribute("name") %></h1>
 
 
 <ul class="collapsible" data-collapsible="accordion">

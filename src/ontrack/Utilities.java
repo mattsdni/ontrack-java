@@ -77,6 +77,8 @@ public class Utilities {
 
     public int addStudentAccount(String name, String password, String email)
     {
+        if (conn == null)
+            openDB();
         Pattern r = Pattern.compile(".+@.+\\..+");
 
         // Now create matcher object.
@@ -114,6 +116,8 @@ public class Utilities {
      */
     public int addSchedule(String email, String degree, String starting_semester, String starting_year, String name)
     {
+        if (conn == null)
+            openDB();
         try
         {
             PreparedStatement q = conn.prepareStatement("INSERT INTO schedule " +
@@ -141,6 +145,8 @@ public class Utilities {
      */
     public int addAdvisor(String student_email, String advisor_email)
     {
+        if (conn == null)
+            openDB();
         try
         {
             PreparedStatement q = conn.prepareStatement("update student set advisor_email = ? " +
@@ -164,6 +170,8 @@ public class Utilities {
      */
     public int deleteCourse(String dept, String course_number)
     {
+        if (conn == null)
+            openDB();
         if(evaluateCourseString(dept, course_number) == -1){
             //invalid course inputted
             return -1;
@@ -187,6 +195,8 @@ public class Utilities {
      * @return the Courses still needed for graduation
      */
     public LinkedList<String> evaluateSchedule(int schedule_id){
+        if (conn == null)
+            openDB();
     	//Load the ResultSets
     	ResultSet cs, math;
     	cs = evaluateCoreCS(schedule_id);
