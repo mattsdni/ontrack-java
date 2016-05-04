@@ -386,7 +386,8 @@ public class Utilities {
      *          -1 if SQLException
      */
     private int rowCounter(ResultSet set){
-    	// This came in handy: http://stackoverflow.com/questions/8292256/get-number-of-rows-returned-by-resultset-in-java
+    	// This came in handy:
+        // http://stackoverflow.com/questions/8292256/get-number-of-rows-returned-by-resultset-in-java
     	int rows = 0;
     	try {
     		set.beforeFirst();
