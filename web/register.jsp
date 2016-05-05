@@ -1,7 +1,6 @@
 <%@ page import="java.util.LinkedList" %>
 <%--
-  This page responds to AJAX requests and returns the project numbers
-  that a specific emplyee works on
+  This page registers the user
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <jsp:useBean id="util" class="ontrack.Utilities" scope="session"/>

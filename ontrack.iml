@@ -29,5 +29,7 @@
     <orderEntry type="library" name="mysql-connector-java-5.1.18-bin (2)" level="project" />
     <orderEntry type="library" name="jquery-2.1.1" level="application" />
     <orderEntry type="library" name="jasypt-1.9.2 (2)" level="project" />
+    <orderEntry type="library" name="json-simple-1.1.1" level="project" />
+    <orderEntry type="library" name="json-simple-1.1.1 (2)" level="project" />
   </component>
 </module>
