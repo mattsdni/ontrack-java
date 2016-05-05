@@ -14,7 +14,12 @@
         <div class="collapsible-header"><i class="material-icons">place</i>View Schedule</div>
         <div class="collapsible-body"><p>This will list the names of previously made schdules.</p></div>
     </li>
+    <li>
+        <div class="collapsible-header"><i class="material-icons">place</i>Add an advisor</div>
+        <div class="collapsible-body"><p>This will allow the student to add an advisor</p></div>
+    </li>
 </ul>
+
 
 
 <jsp:include page="footer.jsp" />
