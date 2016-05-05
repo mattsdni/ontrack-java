@@ -12,11 +12,11 @@
             <div class="col l3 s12">
                 <h5 class="white-text">Team Members</h5>
                 <ul>
-                    <li><a class="white-text" href="#!">Matt Dennie</a></li>
-                    <li><a class="white-text" href="#!">Joseph Bowley</a></li>
-                    <li><a class="white-text" href="#!">Jeoff Villanueva</a></li>
-                    <li><a class="white-text" href="#!">Jordan Gahan</a></li>
-                    <li><a class="white-text" href="#!">Philip Passantino</a></li>
+                    <li><a class="white-text" href="https://github.com/mattsdni">Matt Dennie</a></li>
+                    <li><a class="white-text" href="https://github.com/00Joe/">Joseph Bowley</a></li>
+                    <li><a class="white-text" href="https://github.com/heyitsjeoff">Jeoff Villanueva</a></li>
+                    <li><a class="white-text" href="https://github.com/gahanjr">Jordan Gahan</a></li>
+                    <li><a class="white-text" href="https://github.com/passanpm">Philip Passantino</a></li>
                 </ul>
             </div>
             <div class="col l3 s12">
@@ -41,6 +41,7 @@
 <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 <script src="js/materialize.js"></script>
 <script src="js/init.js"></script>
+<script src="js/scripts.js"></script>
 
 </body>
 </html>

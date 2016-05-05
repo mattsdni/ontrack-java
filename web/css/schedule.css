@@ -1,0 +1,22 @@
+.collapsible-header {
+    padding:0;
+}
+
+.collapsible-header-title-left {
+    display: inline-block;
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+.collapsible-header-title-left.cs {
+    background: lavender;
+}
+
+.collapsible-header-title-right {
+    display: inline-block;
+    /*font-size: 10px;*/
+    /*background: lavender;*/
+    padding-left: 1rem;
+    padding-right: 1rem;
+    float: right;
+}

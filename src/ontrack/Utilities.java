@@ -11,6 +11,8 @@ package ontrack;
 
 import org.jasypt.util.password.StrongPasswordEncryptor;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.sql.*;
 import java.util.LinkedList;
 import java.util.regex.Matcher;
@@ -43,6 +45,17 @@ public class Utilities {
     {
         // Database Info
         String url = "jdbc:mysql://zoe.cs.plu.edu:3306/";
+        try
+        {
+            String ip = InetAddress.getLocalHost().toString();
+            if (ip.contains("192.168."))
+                url = "jdbc:mysql://127.0.0.1:2000/";
+
+        } catch (UnknownHostException e)
+        {
+            e.printStackTrace();
+        }
+
         String db = "dt367_2016";
 
         if (username == null) username = "dt367";
@@ -52,11 +65,24 @@ public class Utilities {
         try {
             Class.forName("com.mysql.jdbc.Driver");
             conn = DriverManager.getConnection(url+db, username, password);
-        } catch (SQLException e) {
-            System.out.println("Error connecting to database: " + e.toString());
-        } catch (ClassNotFoundException e)
-        {
+        } catch (ClassNotFoundException e) {
+            // TODO Auto-generated catch block
             e.printStackTrace();
+        } catch (SQLException e) {
+            System.out.println("attempting to use ssh tunnel to database over port 2000");
+            url = "jdbc:mysql://127.0.0.1:2000/";
+            try
+            {
+                conn = DriverManager.getConnection(url+db, username, password);
+            } catch (SQLException e1)
+            {
+                System.out.println("failed to connect over ssh over port 2000");
+                System.out.println("Please run this command on your terminal (if on mac/linux)");
+                System.out.println("ssh –N –L 2000:zoe.cs.plu.edu:3306 username@haven.cs.plu.edu ");
+                System.out.println("if on windows, use putty or cygwin");
+                System.out.println("For more details, see https://www.cs.plu.edu/courses/csce367/spring2016/courseMaterial/1-Accessing%20MySQL%20off-campus.pdf");
+            }
+
         }
     }
 
@@ -167,16 +193,15 @@ public class Utilities {
     public ResultSet getAllAdvisors(){
         ResultSet rset = null;
         String sql = null;
+        if (conn == null)
+            openDB();
 
         try {
             // create a Statement and an SQL string for the statement
-            sql = "SELECT advisor.name\n" +
+            sql = "SELECT advisor.name " +
                     "FROM advisor";
-            PreparedStatement pstmt = conn.prepareStatement(sql);
-
-            pstmt.clearParameters();
-
-            rset = pstmt.executeQuery();
+            Statement s = conn.createStatement();
+            rset = s.executeQuery(sql);
         } catch (SQLException e) {
             return null;
         }
