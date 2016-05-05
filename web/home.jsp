@@ -16,7 +16,9 @@
     </li>
     <li>
         <div class="collapsible-header"><i class="material-icons">place</i>Add an advisor</div>
-        <div class="collapsible-body"><p>This will allow the student to add an advisor</p></div>
+        <div class="collapsible-body">
+            <jsp:include page="list_all_advisors.jsp" />
+        </div>
     </li>
 </ul>
 

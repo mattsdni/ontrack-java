@@ -18,17 +18,17 @@
             String student_email = (String) session.getAttribute("email");
             if (util.addAdvisor(student_email, advisor_email) == 1)
             {
-                //TODO
+                //TODO: advisor has been added
             }
             else
             {
-                //TODO
+                //TODO: advisor has not been added
             }
         }
 
     }
     else{
-        //TODO
+        //TODO: not a POST
     }
 
 %>

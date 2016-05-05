@@ -195,6 +195,15 @@ public class TestUtilities {
 
     }
 
+    static void callGetAllAdvisors() throws SQLException {
+        ResultSet rs;
+        rs = testObj.getAllAdvisors();
+        while(rs.next()){
+            System.out.println(rs.getString(1));
+        }
+
+    }
+
     /**
      * Prints number of rows affected according to the integer passed in
      * @param result

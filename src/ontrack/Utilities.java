@@ -161,6 +161,30 @@ public class Utilities {
     }
 
     /**
+     * Queries database for all advisors
+     * @return A ResultSet of the all advisors
+     */
+    public ResultSet getAllAdvisors(){
+        ResultSet rset = null;
+        String sql = null;
+
+        try {
+            // create a Statement and an SQL string for the statement
+            sql = "SELECT advisor.name\n" +
+                    "FROM advisor";
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+
+            pstmt.clearParameters();
+
+            rset = pstmt.executeQuery();
+        } catch (SQLException e) {
+            return null;
+        }
+
+        return rset;
+    }
+
+    /**
      * Deletes a course from course table in db
      * @param dept
      * @param course_number
