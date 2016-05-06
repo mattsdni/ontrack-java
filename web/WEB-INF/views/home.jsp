@@ -1,5 +1,3 @@
-<jsp:include page="header.jsp" />
-
 <h1>Welcome Back <%= session.getAttribute("name") %></h1>
 
 
@@ -17,11 +15,9 @@
     <li>
         <div class="collapsible-header"><i class="material-icons">place</i>Add an advisor</div>
         <div class="collapsible-body">
-            <jsp:include page="list_all_advisors.jsp" />
+            <jsp:include page="../includes/list_all_advisors.jsp" />
         </div>
     </li>
 </ul>
 
 
-
-<jsp:include page="footer.jsp" />

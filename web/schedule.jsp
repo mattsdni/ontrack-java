@@ -1,8 +1,24 @@
-<jsp:include page="header.jsp" />
+<%@ page import="java.sql.ResultSet" %>
+<jsp:include page="WEB-INF/includes/header.jsp" />
 <jsp:useBean id="util" class="ontrack.Utilities" scope="session"/>
 
 <%
-    util.getSchedule((Integer) session.getAttribute("id"));
+    String id_s = request.getParameter("id");
+    ResultSet r = null;
+    if (id_s != null)
+    {
+        try
+        {
+            int id = Integer.parseInt(id_s);
+            r = util.getSchedule(id);
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+
+        }
+
+    }
+
 %>
 
 <link href="css/schedule.css" type="text/css" rel="stylesheet" media="screen,projection"/>
@@ -272,4 +288,4 @@
 
 
 
-<jsp:include page="footer.jsp" />
+<jsp:include page="WEB-INF/includes/footer.jsp" />

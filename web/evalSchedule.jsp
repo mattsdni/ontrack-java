@@ -13,7 +13,7 @@
     {
         String id_s = request.getParameter("id"); //schedule id
         Integer id = Integer.parseInt(id_s);
-        LinkedList<String> results = new LinkedList<>();
+        LinkedList<String> results = new LinkedList<String>();
         if (id != null)
         {
             results = util.evaluateSchedule(id);
