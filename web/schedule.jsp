@@ -1,4 +1,10 @@
 <jsp:include page="header.jsp" />
+<jsp:useBean id="util" class="ontrack.Utilities" scope="session"/>
+
+<%
+    util.getSchedule((Integer) session.getAttribute("id"));
+%>
+
 <link href="css/schedule.css" type="text/css" rel="stylesheet" media="screen,projection"/>
 
 <div class="row">

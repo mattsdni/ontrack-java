@@ -538,4 +538,21 @@ public class Utilities {
         return 1;
     }
 
+    public ResultSet getSchedule(int id)
+    {
+        ResultSet rset = null;
+        String sql = null;
+        if (conn == null)
+            openDB();
+
+        try {
+            // create a Statement and an SQL string for the statement
+            sql = "select * from has_course where schedule_id = " + id + " order by course_year, -course_semseter, department, course_number";
+            Statement s = conn.createStatement();
+            rset = s.executeQuery(sql);
+        } catch (SQLException e) {
+            return null;
+        }
+        return rset;
+    }
 }// ontrack.Utilities class
