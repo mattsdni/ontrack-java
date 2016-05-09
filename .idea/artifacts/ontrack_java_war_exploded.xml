@@ -1,0 +1,13 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="ontrack-java:war exploded">
+    <output-path>$PROJECT_DIR$/out/artifacts/ontrack_java_war_exploded</output-path>
+    <root id="root">
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="ontrack-java" />
+        </element>
+      </element>
+      <element id="javaee-facet-resources" facet="ontrack-java/web/Web" />
+    </root>
+  </artifact>
+</component>
