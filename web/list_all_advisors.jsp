@@ -5,13 +5,26 @@
     if(myUtil.getConn() == null){
         myUtil.openDB();
     }
-    ResultSet r = myUtil.getAllAdvisors();
+    ResultSet rsAll = myUtil.getAllAdvisors();
+    String email = (String) session.getAttribute("email");
+    ResultSet rsAdvisor = myUtil.getAdvisor("villancj@plu.edu");
 %>
-<table border="1" cellpadding="5">
-    <tr> <th>Advisor Name</th> </tr>
-    <% while(r.next()){ %>
-    <tr>
-        <td align="left"><%= r.getString(1)%></td>
+
+<%if(rsAdvisor.next()){ %>
+    <p>Your current advisor is <%= rsAdvisor.getString(2) %> ( <%= rsAdvisor.getString(1) %> )</p>
+<%} else {%>
+    <p>You currently do not have an advisor, please select one</p>
+<%}%>
+<div class="input-field">
+    <form action="add_advisor.jsp" method="post">
+        <select name="email">
+            <option value="" disabled selected>Choose an advisor</option>
+        <% while(rsAll.next()){ %>
+            <option value= <%=rsAll.getString(2)%> > <%= rsAll.getString(1)%> </option>
             <%} %>
-    </tr>
-</table>
+        </select>
+        <label>Advisor</label>
+        <br><br>
+        <input type="submit">
+    </form>
+</div>

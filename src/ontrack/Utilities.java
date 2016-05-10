@@ -198,7 +198,7 @@ public class Utilities {
 
         try {
             // create a Statement and an SQL string for the statement
-            sql = "SELECT advisor.name " +
+            sql = "SELECT advisor.name, advisor.email\n" +
                     "FROM advisor";
             Statement s = conn.createStatement();
             rset = s.executeQuery(sql);
@@ -206,6 +206,27 @@ public class Utilities {
             return null;
         }
 
+        return rset;
+    }
+
+    public ResultSet getAdvisor(String student_email){
+        ResultSet rset = null;
+        String sql = null;
+
+        try {
+            // create a Statement and an SQL string for the statement
+            sql = "SELECT student.advisor_email, advisor.name\n" +
+                    "FROM student, advisor\n" +
+                    "WHERE student.email = ? and student.advisor_email = advisor.email";
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+
+            pstmt.clearParameters();
+            pstmt.setString(1, student_email);
+
+            rset = pstmt.executeQuery();
+        } catch (SQLException e) {
+            return null;
+        }
         return rset;
     }
 
