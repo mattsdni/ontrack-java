@@ -201,7 +201,15 @@ public class TestUtilities {
         while(rs.next()){
             System.out.println(rs.getString(1));
         }
+    }
 
+    static void callGetAdvisor() throws SQLException {
+        ResultSet rs;
+        String student_email = keyboard.nextLine();
+        rs = testObj.getAdvisor(student_email);
+        while(rs.next()){
+            System.out.println(rs.getString(1));
+        }
     }
 
     /**
