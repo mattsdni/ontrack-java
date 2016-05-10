@@ -111,7 +111,7 @@
         <div class="collapsible-body container"><p>This will list the names of previously made schdules.</p></div>
     </li>
     <li>
-        <div class="collapsible-header"><i class="material-icons">place</i>Add an advisor</div>
+        <div class="collapsible-header"><i class="material-icons">person_pin</i>Add an advisor</div>
         <div class="collapsible-body container">
             <jsp:include page="list_all_advisors.jsp" />
         </div>
