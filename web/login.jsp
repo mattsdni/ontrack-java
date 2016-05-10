@@ -1,10 +1,4 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: joseph
-  Date: 5/10/16
-  Time: 9:44 AM
-  To change this template use File | Settings | File Templates.
---%>
+<jsp:include page="header.jsp" />
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <jsp:useBean id="myUtil" class="ontrack.Utilities" scope="session"></jsp:useBean>
 <%
@@ -15,10 +9,10 @@
         response.sendRedirect("home.jsp");
     }
 %>
-<%=test%>
-<br>
-<br>
+
 <body>
+<div class="row">
+    <h3>Invalid Login Credentials</h3>
 <form class="col s12" action="login.jsp" method="post">
     <div class="row">
         <div class="input-field col s12">
@@ -49,4 +43,6 @@
         </div>
     </div>
 </form>
+</div>
 </body>
+<jsp:include page="footer.jsp" />
