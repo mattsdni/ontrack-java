@@ -576,4 +576,32 @@ public class Utilities {
         }
         return rset;
     }
+
+    public boolean login(String email, String password)
+    {
+        String sql = null;
+        ResultSet rset = null;
+        if (conn == null)
+        {
+            openDB();
+        }
+
+        try {
+            sql = "select password from student where email = \"" + email + "\"";
+            Statement stmt = conn.createStatement();
+            rset = stmt.executeQuery(sql);
+            StrongPasswordEncryptor passwordEncryptor = new StrongPasswordEncryptor();
+            rset.next();
+            if(passwordEncryptor.checkPassword(password, rset.getString("password")))
+            {
+                return true;
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+
+            return false;
+        }
+        return false;
+    }
 }// ontrack.Utilities class

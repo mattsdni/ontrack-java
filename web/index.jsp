@@ -21,7 +21,7 @@
   <div class="modal-content">
     <h4 class="valign">Login</h4>
     <div class="row">
-      <form class="col s12" action="home.jsp" method="post">
+      <form class="col s12" action="login.jsp" method="post">
         <div class="row">
           <div class="input-field col s12">
             <input id="email-login" type="email" name="email" class="validate">
