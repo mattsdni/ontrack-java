@@ -23,7 +23,6 @@
             <option value= <%=rsAll.getString(2)%> > <%= rsAll.getString(1)%> </option>
             <%} %>
         </select>
-        <label>Advisor</label>
         <p class="left-align">
             <button class="btn waves-effect waves-light" type="submit" name="action">Submit
                 <i class="material-icons right">send</i>
