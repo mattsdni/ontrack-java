@@ -28,8 +28,8 @@
                         <input name="startingSemester" type="radio" id="test3" value="FALL" class = "radio-input"/>
                         <label for="test3" class = "radio-label">FALL</label>
 
-                        <input name="startingSemester" type="radio" id="test4" value="JTERM" class = "radio-input"/>
-                        <label for="test4" class = "radio-label">JTERM</label>
+                        <input name="startingSemester" type="radio" id="test4" value="J-TERM" class = "radio-input"/>
+                        <label for="test4" class = "radio-label">J-TERM</label>
 
                         <input name="startingSemester" type="radio" id="test5" value="SPRING" class = "radio-input"/>
                         <label for="test5" class = "radio-label">SPRING</label>
