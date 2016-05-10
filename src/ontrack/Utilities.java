@@ -597,8 +597,9 @@ public class Utilities {
 
 
 
-    public boolean login(String email, String password)
+    public String login(String email, String password)
     {
+        String result = null;
         String sql = null;
         ResultSet rset = null;
         if (conn == null)
@@ -607,21 +608,19 @@ public class Utilities {
         }
 
         try {
-            sql = "select password from student where email = \"" + email + "\"";
+            sql = "select password, name from student where email = \"" + email + "\"";
             Statement stmt = conn.createStatement();
             rset = stmt.executeQuery(sql);
             StrongPasswordEncryptor passwordEncryptor = new StrongPasswordEncryptor();
             rset.next();
             if(passwordEncryptor.checkPassword(password, rset.getString("password")))
             {
-                return true;
+                return rset.getString("name");
             }
 
         } catch (SQLException e) {
-            e.printStackTrace();
-
-            return false;
+            return result;
         }
-        return false;
+        return result;
     }
 }// ontrack.Utilities class

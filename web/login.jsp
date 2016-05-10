@@ -2,9 +2,11 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <jsp:useBean id="myUtil" class="ontrack.Utilities" scope="session"></jsp:useBean>
 <%
-    boolean test = myUtil.login(request.getParameter("email"), request.getParameter("password"));
-    if(test)
+    String name = myUtil.login(request.getParameter("email"), request.getParameter("password"));
+    if(name != null)
     {
+        session.setAttribute("name", name);
+        session.setAttribute("type", "student");
         session.setAttribute("email", request.getParameter("email"));
         response.sendRedirect("home.jsp");
     }
