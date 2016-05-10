@@ -7,7 +7,7 @@
     }
     ResultSet rsAll = myUtil.getAllAdvisors();
     String email = (String) session.getAttribute("email");
-    ResultSet rsAdvisor = myUtil.getAdvisor("villancj@plu.edu");
+    ResultSet rsAdvisor = myUtil.getAdvisor(email);
 %>
 
 <%if(rsAdvisor.next()){ %>
@@ -23,8 +23,10 @@
             <option value= <%=rsAll.getString(2)%> > <%= rsAll.getString(1)%> </option>
             <%} %>
         </select>
-        <label>Advisor</label>
-        <br><br>
-        <input type="submit">
+        <p class="left-align">
+            <button class="btn waves-effect waves-light" type="submit" name="action">Submit
+                <i class="material-icons right">send</i>
+            </button>
+        </p>
     </form>
 </div>

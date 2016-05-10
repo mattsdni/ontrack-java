@@ -5,7 +5,7 @@
 
 <ul class="collapsible" data-collapsible="accordion">
     <li>
-        <div class="collapsible-header"><i class="material-icons">filter_drama</i>Create a Schedule</div>
+        <div class="collapsible-header"><i class="material-icons">schedule</i>Create a Schedule</div>
         <div class="collapsible-body container">
 
             <h2>Create a Schedule </h2>
@@ -28,8 +28,8 @@
                         <input name="startingSemester" type="radio" id="test3" value="FALL" class = "radio-input"/>
                         <label for="test3" class = "radio-label">FALL</label>
 
-                        <input name="startingSemester" type="radio" id="test4" value="JTERM" class = "radio-input"/>
-                        <label for="test4" class = "radio-label">JTERM</label>
+                        <input name="startingSemester" type="radio" id="test4" value="J-TERM" class = "radio-input"/>
+                        <label for="test4" class = "radio-label">J-TERM</label>
 
                         <input name="startingSemester" type="radio" id="test5" value="SPRING" class = "radio-input"/>
                         <label for="test5" class = "radio-label">SPRING</label>
@@ -99,8 +99,11 @@
 
                     </p>
 
-                <input type="submit" value="Submit" a class="waves-effect waves-light btn">
-                <br><br>
+                <p class="left-align">
+                    <button class="btn waves-effect waves-light" type="submit" name="action">Submit
+                        <i class="material-icons right">send</i>
+                    </button>
+                </p>
             </form>
 
 
@@ -111,7 +114,7 @@
         <div class="collapsible-body container"><p>This will list the names of previously made schdules.</p></div>
     </li>
     <li>
-        <div class="collapsible-header"><i class="material-icons">place</i>Add an advisor</div>
+        <div class="collapsible-header"><i class="material-icons">person_pin</i>Add an advisor</div>
         <div class="collapsible-body container">
             <jsp:include page="list_all_advisors.jsp" />
         </div>

@@ -238,7 +238,7 @@ public class Utilities {
      *         (2) 0 for SQL statements that return nothing
      *         (3) -1 for failure
      */
-    public int deleteCourse(String dept, String course_number)
+    public int deleteCourse(String dept, String course_number, int schedule_id)
     {
         if (conn == null)
             openDB();
@@ -248,13 +248,16 @@ public class Utilities {
         }
         try
         {
-            PreparedStatement q = conn.prepareStatement("DELETE FROM course " +
-                    "WHERE department = ? AND course_number = ?");
+            PreparedStatement q = conn.prepareStatement("DELETE FROM has_course " +
+                    "WHERE department = ? AND course_number = ? AND schedule_id = ?");
+            q.clearParameters();
             q.setString(1, dept);
             q.setString(2, course_number);
+            q.setInt(3, schedule_id);
             return q.executeUpdate();
         } catch (SQLException e)
         {
+        	System.out.println(e.getMessage());
             return -1;
         }
     }
@@ -597,8 +600,9 @@ public class Utilities {
 
 
 
-    public boolean login(String email, String password)
+    public String login(String email, String password)
     {
+        String result = null;
         String sql = null;
         ResultSet rset = null;
         if (conn == null)
@@ -607,21 +611,19 @@ public class Utilities {
         }
 
         try {
-            sql = "select password from student where email = \"" + email + "\"";
+            sql = "select password, name from student where email = \"" + email + "\"";
             Statement stmt = conn.createStatement();
             rset = stmt.executeQuery(sql);
             StrongPasswordEncryptor passwordEncryptor = new StrongPasswordEncryptor();
             rset.next();
             if(passwordEncryptor.checkPassword(password, rset.getString("password")))
             {
-                return true;
+                return rset.getString("name");
             }
 
         } catch (SQLException e) {
-            e.printStackTrace();
-
-            return false;
+            return result;
         }
-        return false;
+        return result;
     }
 }// ontrack.Utilities class
