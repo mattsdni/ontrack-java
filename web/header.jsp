@@ -1,26 +1,24 @@
 <!DOCTYPE HTML>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%
-    String uri = request.getRequestURI();
-    String pageName = uri.substring(uri.lastIndexOf("/")+1);
-    if (pageName.contains("index.jsp"))
-    {
-        if (session.getAttribute("email") != null)
-        {
-            response.sendRedirect("home.jsp");
-        }
-    }
-    else if (!(pageName.contains("login.jsp") || pageName.contains("register.jsp") || pageName.contains("logout.jsp")))
-    {
-
-        if (session.getAttribute("email") == null)
-        {
-            RequestDispatcher view = request.getRequestDispatcher("index.jsp");
-            view.forward(request, response);
-        }
-    }
-
-%>
+<%--<%--%>
+    <%--String uri = request.getRequestURI();--%>
+    <%--String pageName = uri.substring(uri.lastIndexOf("/")+1);--%>
+    <%--if (pageName.contains("index.jsp"))--%>
+    <%--{--%>
+        <%--if (session.getAttribute("email") != null)--%>
+        <%--{--%>
+            <%--response.sendRedirect("home.jsp");--%>
+        <%--}--%>
+    <%--}--%>
+    <%--else if (!(pageName.contains("login.jsp") || pageName.contains("register.jsp") || pageName.contains("logout.jsp")))--%>
+    <%--{--%>
+        <%--if (session.getAttribute("email") == null)--%>
+        <%--{--%>
+            <%--RequestDispatcher view = request.getRequestDispatcher("index.jsp");--%>
+            <%--view.forward(request, response);--%>
+        <%--}--%>
+    <%--}--%>
+<%--%>--%>
 <html lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
