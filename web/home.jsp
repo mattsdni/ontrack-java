@@ -5,7 +5,7 @@
 
 <ul class="collapsible" data-collapsible="accordion">
     <li>
-        <div class="collapsible-header"><i class="material-icons">filter_drama</i>Create a Schedule</div>
+        <div class="collapsible-header"><i class="material-icons">schedule</i>Create a Schedule</div>
         <div class="collapsible-body container">
 
             <h2>Create a Schedule </h2>
