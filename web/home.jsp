@@ -99,8 +99,11 @@
 
                     </p>
 
-                <input type="submit" value="Submit" a class="waves-effect waves-light btn">
-                <br><br>
+                <p class="left-align">
+                    <button class="btn waves-effect waves-light" type="submit" name="action">Submit
+                        <i class="material-icons right">send</i>
+                    </button>
+                </p>
             </form>
 
 
