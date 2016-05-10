@@ -577,6 +577,26 @@ public class Utilities {
         return rset;
     }
 
+    public ResultSet getScheduleId() {
+        ResultSet rset = null;
+        String sql = null;
+        if (conn == null)
+            openDB();
+
+        try {
+            // create a Statement and an SQL string for the statement
+            sql = "SELECT id FROM schedule ORDER BY id DESC LIMIT 1";
+            Statement s = conn.createStatement();
+            rset = s.executeQuery(sql);
+        } catch (SQLException e) {
+            return null;
+        }
+        return rset;
+    }
+
+
+
+
     public boolean login(String email, String password)
     {
         String sql = null;

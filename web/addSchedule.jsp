@@ -16,7 +16,7 @@
     <title></title>
 </head>
 <body>
-<h1>Added a schedule </h1>
+
 <%
     Object target = session.getAttribute("email");
     String target1 = (String)target;
@@ -25,6 +25,11 @@
     String target4 = request.getParameter("startingYear");
     String target5 = request.getParameter("scheduleName");
     util.addSchedule(target1,target2,target3,target4,target5);
+
+    ResultSet rs = util.getScheduleId();
+    rs.next();
+    String idNumber = rs.getString(1);
+    response.sendRedirect("schedule.jsp?id=" + idNumber);
 %>
 
 
