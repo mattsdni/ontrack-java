@@ -18,7 +18,7 @@ The passed in email was <%= request.getParameter("email") %> <br>
             String student_email = (String) session.getAttribute("email");
             if (util.addAdvisor(student_email, advisor_email) == 1)
             {
-                //TODO: advisor has been added
+                response.sendRedirect("home.jsp");
             }
         }
     }
