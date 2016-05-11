@@ -33,7 +33,6 @@
         String current_semester = courses.getString("course_semester");
         String prev_semester = current_semester;
         String current_year = courses.getString("course_year");
-        String prev_year = current_year;
         out.print(beginYear()); //start a row for first year
         out.print(semesterCardStart(current_semester, current_year));
         courses.previous();
@@ -68,6 +67,7 @@
             out.print(semesterCardCourse(title, dept, course_num, credits, description));
         }
         out.print(semesterCardEnd());
+        out.print(addSemesterButton());
         out.print(endYear());
     } catch (SQLException e)
     {
@@ -76,10 +76,8 @@
     }
 
 %>
-<br>
-<button class="btn waves-effect waves-light" type="button" name="action">
-    <i class="material-icons center">add</i>
-</button>
+
+
 
 <%!
     public String beginYear()
@@ -134,6 +132,15 @@
                 "</div>" +
                 "</div>" +
                 "</li>";
+    }
+
+    public String addSemesterButton()
+    {
+        return  "    <div class=\"col m12 l4 center\" style=\"padding-top: 4rem;\">\n" +
+                "        <button class=\"btn waves-effect waves-light btn-xlarge\" type=\"button\" name=\"action\">\n" +
+                "            <i class=\"material-icons center\">add</i>\n" +
+                "        </button>\n" +
+                "    </div>\n";
     }
 %>
 

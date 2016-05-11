@@ -20,3 +20,16 @@
     padding-right: 1rem;
     float: right;
 }
+
+.btn-xlarge {
+    height: 10rem;
+    line-height: 56px;
+}
+
+.btn-xlarge i {
+    font-size: 4rem;
+    padding-left: 4rem;
+    padding-right: 4rem;
+    padding-top: 1rem;
+
+}
