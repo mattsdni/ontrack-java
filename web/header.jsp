@@ -35,7 +35,12 @@
 <nav class="light-blue lighten-1" role="navigation">
     <div class="nav-wrapper container"><a id="logo-container" href="index.jsp" class="brand-logo">OnTrack</a>
         <ul class="right hide-on-med-and-down">
-            <li><a href="#">Navbar Link</a></li>
+            <% if (session.getAttribute("email") == null) { %>
+
+            <% } else { %>
+            <li><a href="logout.jsp">Logout</a></li>
+
+            <% } %>
         </ul>
 
         <ul id="nav-mobile" class="side-nav">
