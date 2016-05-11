@@ -1,4 +1,5 @@
 <%@ page import="java.sql.ResultSet" %>
+<%@ page import="java.sql.SQLException" %>
 <jsp:include page="header.jsp" />
 <jsp:useBean id="util" class="ontrack.Utilities" scope="session"/>
 
@@ -10,6 +11,7 @@
     }catch(Exception e){
     response.sendRedirect("home.jsp");
     }
+    //util.printResultSet(courses);
 
 
 %>
@@ -24,40 +26,77 @@
 </div>
 
 <%
-    out.print(beginYear());
+    try
+    {
+        System.out.println("-----new-----");
+        courses.next();
+        String current_semester = courses.getString("course_semester");
+        String prev_semester = current_semester;
+        String current_year = courses.getString("course_year");
+        String prev_year = current_year;
+        out.print(beginYear()); //start a row for first year
+        out.print(semesterCardStart(current_semester, current_year));
+        courses.previous();
+        while (courses.next())
+        {
+            current_semester = courses.getString("course_semester");
+            if (current_semester.compareTo(prev_semester) != 0)
+            {
+                if (current_semester.equals("FALL"))
+                {
+                    prev_semester = current_semester;
+                    out.print(semesterCardEnd());
+                    out.print(endYear());
+                    out.print(beginYear());
+                    out.print(semesterCardStart(courses.getString("course_semester"), courses.getString("course_year")));
+                }
+                else
+                {
+                    prev_semester = current_semester;
+                    out.print(semesterCardEnd());
+                    out.print(semesterCardStart(courses.getString("course_semester"), courses.getString("course_year")));
+                }
+            }
 
-    out.print(semesterCardStart("Fall", "2012"));
-    out.print(semesterCardCourse("Introduction to Computer Science", "CSCE", "144", 4, "An introduction to computer science including problem solving, algorithm design"));
-    out.print(semesterCardCourse("Introduction to Computer Science", "CSCE", "144", 4, "An introduction to computer science including problem solving, algorithm design"));
-    out.print(semesterCardEnd());
+            //add course to current semester
+            String title = courses.getString("name");
+            String dept = courses.getString("department");
+            String course_num = courses.getString("course_number");
+            int credits = courses.getInt("credits");
+            String description = courses.getString("description");
 
-    out.print(semesterCardStart("J-Term", "2013"));
-    out.print(semesterCardCourse("Introduction to Computer Science", "CSCE", "144", 4, "An introduction to computer science including problem solving, algorithm design"));
-    out.print(semesterCardCourse("Introduction to Computer Science", "CSCE", "144", 4, "An introduction to computer science including problem solving, algorithm design"));
-    out.print(semesterCardEnd());
-
-    out.print(semesterCardStart("Spring", "2013"));
-    out.print(semesterCardCourse("Introduction to Computer Science", "CSCE", "144", 4, "An introduction to computer science including problem solving, algorithm design"));
-    out.print(semesterCardCourse("Introduction to Computer Science", "CSCE", "144", 4, "An introduction to computer science including problem solving, algorithm design"));
-    out.print(semesterCardEnd());
-
-    out.print(endYear());
+            out.print(semesterCardCourse(title, dept, course_num, credits, description));
+        }
+        out.print(semesterCardEnd());
+        out.print(endYear());
+    } catch (SQLException e)
+    {
+        e.printStackTrace();
+        out.print("<h1>Your Schedule is empty.</h1>");
+    }
 
 %>
+<br>
+<button class="btn waves-effect waves-light" type="button" name="action">
+    <i class="material-icons center">add</i>
+</button>
 
 <%!
     public String beginYear()
     {
+        System.out.println("begin year");
         return "<div class=\"row\">";
     }
 
     public String endYear()
     {
+        System.out.println("end year");
         return "</div>";
     }
 
     public String semesterCardStart(String semester, String year)
     {
+        //System.out.println("semester start");
         return "<div class='col m12 l4 cards-container'>" +
                 "<div class=\"cardpad\">" +
                 "<div class=\"card hoverable z-depth-1 semester\" id=\"" + semester + year + " \" onclick='highlightSemester(\"" + semester + year + "\")'>" +
@@ -68,6 +107,7 @@
 
     public String semesterCardEnd()
     {
+        System.out.println("semester end");
         return "</div>" +
                 "<div class=\"card-action\">" +
                 "<div class=\"right-text\">" +
@@ -76,6 +116,7 @@
     }
     public String semesterCardCourse(String title, String dept, String course_num, int credits, String description)
     {
+        System.out.println("add " + title + " to semester");
         return "<li>" +
                 "<div class=\"collapsible-header\">" +
                 "<div class=\"collapsible-header-title-left cs\">" +
@@ -95,262 +136,5 @@
                 "</li>";
     }
 %>
-<%--<!-- Begin Year Row -->--%>
-<%--<div class="row">--%>
-
-    <%--<!--Begin Cards Container-->--%>
-    <%--<div class="col m12 l4 cards-container">--%>
-
-        <%--<!-- Begin Semester Card -->--%>
-        <%--<div class="cardpad">--%>
-            <%--<div class="card hoverable z-depth-1 semester" id="fall2016" onclick='highlightSemester("fall2016")'>--%>
-                <%--<div class="card-content black-text">--%>
-                    <%--<span class="card-title">Fall 2016</span>--%>
-
-                    <%--<ul class="collapsible z-depth-0" data-collapsible="accordion" id="fall2016courselist">--%>
-                        <%--<li>--%>
-                            <%--<!--Course label -->--%>
-                            <%--<div class="collapsible-header">--%>
-                                <%--<div class="collapsible-header-title-left cs">--%>
-                                    <%--CSCE 144--%>
-                                <%--</div>--%>
-                                <%--<div class="collapsible-header-title-right">--%>
-                                    <%--Fall/Spring--%>
-                                <%--</div>--%>
-                            <%--</div>--%>
-                            <%--<div class="collapsible-body">--%>
-                                <%--<h5 class="center-text">Introduction to Computer Science</h5>--%>
-                                <%--<p>An introduction to computer science including problem solving, algorithm design,--%>
-                                    <%--object-oriented programming, numerical and non-numerical applications, and use of--%>
-                                    <%--data files. Ethical and social impacts of computing. Prerequisite: four years of--%>
-                                    <%--high school mathematics or MATH 140 or equivalent.</p>--%>
-
-                                <%--<div class="center-btn">--%>
-                                    <%--<a class="waves-effect waves-light btn red" onclick='alert("hi")'>Remove</a>--%>
-                                <%--</div>--%>
-
-                            <%--</div>--%>
-                        <%--</li>--%>
-                        <%--<li>--%>
-                            <%--<div class="collapsible-header"><i class="material-icons">place</i>Second</div>--%>
-                            <%--<div class="collapsible-body"><p>Lorem ipsum dolor sit amet.</p></div>--%>
-                        <%--</li>--%>
-                    <%--</ul>--%>
-                <%--</div> <!-- End Card content-->--%>
-                <%--<div class="card-action">--%>
-                    <%--<div class="right-text">--%>
-                        <%--<p>Total Credits: 17</p>--%>
-                    <%--</div>--%>
-                <%--</div> <!--End Card Action (Bottom stuff)-->--%>
-            <%--</div> <!--End Semester Card-->--%>
-        <%--</div> <!--End Card Pad-->--%>
-    <%--</div> <!--End Cards Container-->--%>
-
-    <%--<!--Begin Cards Container-->--%>
-    <%--<div class="col m12 l4 cards-container">--%>
-        <%--<!-- Begin Semester Card -->--%>
-        <%--<div class="cardpad">--%>
-            <%--<div class="card hoverable z-depth-1 semester" id="jterm2017" onclick='highlightSemester("jterm2017")'>--%>
-                <%--<div class="card-content black-text">--%>
-                    <%--<span class="card-title">J-Term 2017</span>--%>
-
-                    <%--<ul class="collapsible z-depth-0" data-collapsible="accordion" id="jterm2017courselist">--%>
-                        <%--<li>--%>
-                            <%--<div class="collapsible-header"><i class="material-icons">subtitles</i>CSCE 144<span class="right">Fall/Spring</span></div>--%>
-                            <%--<div class="collapsible-body">--%>
-                                <%--<h5 class="center-text">Introduction to Computer Science</h5>--%>
-                                <%--<p>An introduction to computer science including problem solving, algorithm design,--%>
-                                    <%--object-oriented programming, numerical and non-numerical applications, and use of--%>
-                                    <%--data files. Ethical and social impacts of computing. Prerequisite: four years of--%>
-                                    <%--high school mathematics or MATH 140 or equivalent.</p>--%>
-
-                                <%--<div class="center-btn">--%>
-                                    <%--<a class="waves-effect waves-light btn red" onclick='alert("hi")'>Remove</a>--%>
-                                <%--</div>--%>
-
-                            <%--</div>--%>
-                        <%--</li>--%>
-                        <%--<li>--%>
-                            <%--<div class="collapsible-header"><i class="material-icons">place</i>Second</div>--%>
-                            <%--<div class="collapsible-body"><p>Lorem ipsum dolor sit amet.</p></div>--%>
-                        <%--</li>--%>
-                    <%--</ul>--%>
-                <%--</div> <!-- End Card content-->--%>
-                <%--<div class="card-action">--%>
-                    <%--<div class="right-text">--%>
-                        <%--<p>Total Credits: 17</p>--%>
-                    <%--</div>--%>
-                <%--</div> <!--End Card Action (Bottom stuff)-->--%>
-            <%--</div> <!--End Semester Card-->--%>
-        <%--</div> <!--End Card Pad-->--%>
-    <%--</div> <!--End Cards Container-->--%>
-
-    <%--<!--Begin Cards Container-->--%>
-    <%--<div class="col m12 l4 cards-container">--%>
-        <%--<!-- Begin Semester Card -->--%>
-        <%--<div class="cardpad">--%>
-            <%--<div class="card hoverable z-depth-1 semester" id="spring2017" onclick='highlightSemester("spring2017")'>--%>
-                <%--<div class="card-content black-text">--%>
-                    <%--<span class="card-title">Spring 2017</span>--%>
-
-                    <%--<ul class="collapsible z-depth-0" data-collapsible="accordion" id="spring2017courselist">--%>
-                        <%--<li>--%>
-                            <%--<div class="collapsible-header"><i class="material-icons">subtitles</i>CSCE 144<span class="right">Fall/Spring</span></div>--%>
-                            <%--<div class="collapsible-body">--%>
-                                <%--<h5 class="center-text">Introduction to Computer Science</h5>--%>
-                                <%--<p>An introduction to computer science including problem solving, algorithm design,--%>
-                                    <%--object-oriented programming, numerical and non-numerical applications, and use--%>
-                                    <%--of data files. Ethical and social impacts of computing. Prerequisite: four years--%>
-                                    <%--of high school mathematics or MATH 140 or equivalent.</p>--%>
-
-                                <%--<div class="center-btn">--%>
-                                    <%--<a class="waves-effect waves-light btn red" onclick='alert("hi")'>Remove</a>--%>
-                                <%--</div>--%>
-
-                            <%--</div>--%>
-                        <%--</li>--%>
-                        <%--<li>--%>
-                            <%--<div class="collapsible-header"><i class="material-icons">place</i>Second</div>--%>
-                            <%--<div class="collapsible-body"><p>Lorem ipsum dolor sit amet.</p></div>--%>
-                        <%--</li>--%>
-                    <%--</ul>--%>
-                <%--</div> <!-- End Card content-->--%>
-                <%--<div class="card-action">--%>
-                    <%--<div class="right-text">--%>
-                        <%--<p>Total Credits: 17</p>--%>
-                    <%--</div>--%>
-                <%--</div> <!--End Card Action (Bottom stuff)-->--%>
-            <%--</div> <!--End Semester Card-->--%>
-        <%--</div> <!--End Card Pad-->--%>
-    <%--</div> <!--End Cards Container-->--%>
-
-<%--</div> <!--End Row-->--%>
-
-
-<%--<!-- Begin Year Row -->--%>
-<%--<div class="row">--%>
-
-    <%--<!--Begin Cards Container-->--%>
-    <%--<div class="col m12 l4 cards-container">--%>
-
-        <%--<!-- Begin Semester Card -->--%>
-        <%--<div class="cardpad">--%>
-            <%--<div class="card hoverable z-depth-1 semester" id="fall2016" onclick='highlightSemester("fall2016")'>--%>
-                <%--<div class="card-content black-text">--%>
-                    <%--<span class="card-title">Fall 2016</span>--%>
-
-                    <%--<ul class="collapsible z-depth-0" data-collapsible="accordion" id="fall2016courselist">--%>
-                        <%--<li>--%>
-                            <%--<div class="collapsible-header"><i class="material-icons">subtitles</i>CSCE 144<span class="right">Fall/Spring</span></div>--%>
-                            <%--<div class="collapsible-body">--%>
-                                <%--<h5 class="center-text">Introduction to Computer Science</h5>--%>
-                                <%--<p>An introduction to computer science including problem solving, algorithm design,--%>
-                                    <%--object-oriented programming, numerical and non-numerical applications, and use--%>
-                                    <%--of data files. Ethical and social impacts of computing. Prerequisite: four years--%>
-                                    <%--of high school mathematics or MATH 140 or equivalent.</p>--%>
-
-                                <%--<div class="center-btn">--%>
-                                    <%--<a class="waves-effect waves-light btn red" onclick='alert("hi")'>Remove</a>--%>
-                                <%--</div>--%>
-
-                            <%--</div>--%>
-                        <%--</li>--%>
-                        <%--<li>--%>
-                            <%--<div class="collapsible-header"><i class="material-icons">place</i>Second</div>--%>
-                            <%--<div class="collapsible-body"><p>Lorem ipsum dolor sit amet.</p></div>--%>
-                        <%--</li>--%>
-                    <%--</ul>--%>
-                <%--</div> <!-- End Card content-->--%>
-                <%--<div class="card-action">--%>
-                    <%--<div class="right-text">--%>
-                        <%--<p>Total Credits: 17</p>--%>
-                    <%--</div>--%>
-                <%--</div> <!--End Card Action (Bottom stuff)-->--%>
-            <%--</div> <!--End Semester Card-->--%>
-        <%--</div> <!--End Card Pad-->--%>
-    <%--</div> <!--End Cards Container-->--%>
-
-    <%--<!--Begin Cards Container-->--%>
-    <%--<div class="col m12 l4 cards-container">--%>
-        <%--<!-- Begin Semester Card -->--%>
-        <%--<div class="cardpad">--%>
-            <%--<div class="card hoverable z-depth-1 semester" id="jterm2017" onclick='highlightSemester("jterm2017")'>--%>
-                <%--<div class="card-content black-text">--%>
-                    <%--<span class="card-title">J-Term 2017</span>--%>
-
-                    <%--<ul class="collapsible z-depth-0" data-collapsible="accordion" id="jterm2017courselist">--%>
-                        <%--<li>--%>
-                            <%--<div class="collapsible-header"><i class="material-icons">subtitles</i>CSCE 144<span class="right">Fall/Spring</span></div>--%>
-                            <%--<div class="collapsible-body">--%>
-                                <%--<h5 class="center-text">Introduction to Computer Science</h5>--%>
-                                <%--<p>An introduction to computer science including problem solving, algorithm design,--%>
-                                    <%--object-oriented programming, numerical and non-numerical applications, and use of--%>
-                                    <%--data files. Ethical and social impacts of computing. Prerequisite: four years of--%>
-                                    <%--high school mathematics or MATH 140 or equivalent.</p>--%>
-
-                                <%--<div class="center-btn">--%>
-                                    <%--<a class="waves-effect waves-light btn red" onclick='alert("hi")'>Remove</a>--%>
-                                <%--</div>--%>
-
-                            <%--</div>--%>
-                        <%--</li>--%>
-                        <%--<li>--%>
-                            <%--<div class="collapsible-header"><i class="material-icons">place</i>Second</div>--%>
-                            <%--<div class="collapsible-body"><p>Lorem ipsum dolor sit amet.</p></div>--%>
-                        <%--</li>--%>
-                    <%--</ul>--%>
-                <%--</div> <!-- End Card content-->--%>
-                <%--<div class="card-action">--%>
-                    <%--<div class="right-text">--%>
-                        <%--<p>Total Credits: 17</p>--%>
-                    <%--</div>--%>
-                <%--</div> <!--End Card Action (Bottom stuff)-->--%>
-            <%--</div> <!--End Semester Card-->--%>
-        <%--</div> <!--End Card Pad-->--%>
-    <%--</div> <!--End Cards Container-->--%>
-
-    <%--<!--Begin Cards Container-->--%>
-    <%--<div class="col m12 l4 cards-container">--%>
-        <%--<!-- Begin Semester Card -->--%>
-        <%--<div class="cardpad">--%>
-            <%--<div class="card hoverable z-depth-1 semester" id="spring2017" onclick='highlightSemester("spring2017")'>--%>
-                <%--<div class="card-content black-text">--%>
-                    <%--<span class="card-title">Spring 2017</span>--%>
-
-                    <%--<ul class="collapsible z-depth-0" data-collapsible="accordion" id="spring2017courselist">--%>
-                        <%--<li>--%>
-                            <%--<div class="collapsible-header"><i class="material-icons">subtitles</i>CSCE 144<span class="right">Fall/Spring</span></div>--%>
-                            <%--<div class="collapsible-body">--%>
-                                <%--<h5 class="center-text">Introduction to Computer Science</h5>--%>
-                                <%--<p>An introduction to computer science including problem solving, algorithm design,--%>
-                                    <%--object-oriented programming, numerical and non-numerical applications, and use of--%>
-                                    <%--data files. Ethical and social impacts of computing. Prerequisite: four years of--%>
-                                    <%--high school mathematics or MATH 140 or equivalent.</p>--%>
-
-                                <%--<div class="center-btn">--%>
-                                    <%--<a class="waves-effect waves-light btn red" onclick='alert("hi")'>Remove</a>--%>
-                                <%--</div>--%>
-
-                            <%--</div>--%>
-                        <%--</li>--%>
-                        <%--<li>--%>
-                            <%--<div class="collapsible-header"><i class="material-icons">place</i>Second</div>--%>
-                            <%--<div class="collapsible-body"><p>Lorem ipsum dolor sit amet.</p></div>--%>
-                        <%--</li>--%>
-                    <%--</ul>--%>
-                <%--</div> <!-- End Card content-->--%>
-                <%--<div class="card-action">--%>
-                    <%--<div class="right-text">--%>
-                        <%--<p>Total Credits: 17</p>--%>
-                    <%--</div>--%>
-                <%--</div> <!--End Card Action (Bottom stuff)-->--%>
-            <%--</div> <!--End Semester Card-->--%>
-        <%--</div> <!--End Card Pad-->--%>
-    <%--</div> <!--End Cards Container-->--%>
-
-<%--</div> <!--End Row-->--%>
-
-
-
 
 <jsp:include page="footer.jsp" />

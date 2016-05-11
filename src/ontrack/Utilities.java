@@ -571,7 +571,8 @@ public class Utilities {
 
         try {
             // create a Statement and an SQL string for the statement
-            sql = "select * from has_course where schedule_id = " + id + " order by course_year, -course_semseter, department, course_number";
+            sql = "select * from has_course join course on has_course.department = course.department AND has_course.course_number = course.course_number " +
+                    "where schedule_id = "+ id + " order by course_year, -course_semester, has_course.department, has_course.course_number";
             Statement s = conn.createStatement();
             rset = s.executeQuery(sql);
         } catch (SQLException e) {
@@ -625,5 +626,33 @@ public class Utilities {
             return result;
         }
         return result;
+    }
+
+    //debug only
+    public void printResultSet(ResultSet rs) {
+        try {
+            ResultSetMetaData rsmd = rs.getMetaData();
+
+            int numberOfColumns = rsmd.getColumnCount();
+
+            for (int i = 1; i <= numberOfColumns; i++) {
+                String columnName = rsmd.getColumnName(i);
+                System.out.format("%15s", columnName);
+            }
+            System.out.println();
+
+            while (rs.next()) {
+                for (int i = 1; i <= numberOfColumns; i++) {
+                    String columnValue = rs.getString(i);
+                    System.out.format("%15s", columnValue);
+                }
+                System.out.println("");
+            }
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
     }
 }// ontrack.Utilities class

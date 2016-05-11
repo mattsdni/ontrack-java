@@ -179,7 +179,7 @@ public class TestUtilities {
         System.out.print("Enter course number: ");
         String course_number = keyboard.nextLine();
 
-        printRowsAffected(testObj.deleteCourse(dept, course_number));
+        //printRowsAffected(testObj.deleteCourse(dept, course_number));
     }
 
     /**
