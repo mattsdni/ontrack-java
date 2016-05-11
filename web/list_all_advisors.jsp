@@ -1,6 +1,5 @@
 <%@ page import="java.sql.*" %>
 <jsp:useBean id="myUtil" class="ontrack.Utilities" scope="session"></jsp:useBean>
-
 <%
     if(myUtil.getConn() == null){
         myUtil.openDB();
@@ -9,7 +8,6 @@
     String email = (String) session.getAttribute("email");
     ResultSet rsAdvisor = myUtil.getAdvisor(email);
 %>
-
 <%if(rsAdvisor.next()){ %>
     <p>Your current advisor is <%= rsAdvisor.getString(2) %> ( <%= rsAdvisor.getString(1) %> )</p>
 <%} else {%>
