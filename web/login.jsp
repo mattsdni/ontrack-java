@@ -2,6 +2,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <jsp:useBean id="myUtil" class="ontrack.Utilities" scope="session"></jsp:useBean>
 <%
+    String email = null;
     String name = myUtil.login(request.getParameter("email"), request.getParameter("password"));
     if(name != null)
     {
@@ -9,6 +10,11 @@
         session.setAttribute("type", "student");
         session.setAttribute("email", request.getParameter("email"));
         response.sendRedirect("home.jsp");
+    }
+    else {
+        email = request.getParameter("email");
+        if(email == null)
+            email = "";
     }
 %>
 
@@ -18,7 +24,7 @@
 <form class="col s12" action="login.jsp" method="post">
     <div class="row">
         <div class="input-field col s12">
-            <input id="email-login" type="email" name="email" class="validate">
+            <input id="email-login" type="email" name="email" class="validate" value="<%=email%>">
             <label for="email-login">Email</label>
         </div>
     </div>
