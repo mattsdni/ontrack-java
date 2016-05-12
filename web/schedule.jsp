@@ -252,4 +252,7 @@
     }
 
 </script>
+
+<jsp:include page="/views/modals/addToSemesterModal.jsp" />
+
 <jsp:include page="footer.jsp" />

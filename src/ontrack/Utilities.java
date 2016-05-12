@@ -10,11 +10,13 @@ package ontrack;
 // You need to import the java.sql package to use JDBC methods and classes
 
 import org.jasypt.util.password.StrongPasswordEncryptor;
+import sun.awt.image.ImageWatched;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.sql.*;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -745,4 +747,36 @@ public class Utilities {
         }
         return rset;
     }
+
+    public LinkedList<String[]> getAllCourses() throws SQLException
+    {
+        LinkedList<String[]> result = new LinkedList<>();
+        ResultSet rset = null;
+        String sql = null;
+        if (conn == null)
+            openDB();
+
+
+            // create a Statement and an SQL string for the statement
+            sql = "SELECT department, course_number, name, credits FROM course";
+            Statement s = conn.createStatement();
+            rset = s.executeQuery(sql);
+
+            while(rset.next())
+            {
+                String[] row = new String[4];
+                row[0] = rset.getString("department");
+                row[1] = rset.getString("course_number");
+                row[2] = rset.getString("name");
+                row[3] = rset.getString("credits");
+                result.add(row);
+
+            }
+        for(String[] r: result)
+        {
+            System.out.println(r[0]);
+        }
+        return result;
+    }
+
 }// ontrack.Utilities class
