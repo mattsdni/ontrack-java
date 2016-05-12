@@ -60,7 +60,7 @@
         </div>
     </li>
     <li>
-        <div class="collapsible-header"><i class="material-icons">visibility</i>View Schedule</div>
+        <div class="collapsible-header"><i class="material-icons">visibility</i>View Schedules</div>
         <div class="collapsible-body container">
             <jsp:include page="view_schedules.jsp" />
         </div>
