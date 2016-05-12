@@ -60,8 +60,10 @@
         </div>
     </li>
     <li>
-        <div class="collapsible-header"><i class="material-icons">visibility</i>View Schedule</div>
-        <div class="collapsible-body container"><p>This will list the names of previously made schdules.</p></div>
+        <div class="collapsible-header"><i class="material-icons">visibility</i>View Schedules</div>
+        <div class="collapsible-body container">
+            <jsp:include page="view_schedules.jsp" />
+        </div>
     </li>
     <li>
         <div class="collapsible-header"><i class="material-icons">person_pin</i>Add an advisor</div>

@@ -721,4 +721,28 @@ public class Utilities {
         }
 
     }
+
+    public ResultSet getSchedulesForStudent(String email){
+        ResultSet rset = null;
+        String sql = null;
+        if (conn == null)
+            openDB();
+
+        try {
+            // create a Statement and an SQL string for the statement
+            sql = "SELECT schedule.id, schedule.name\n" +
+                    "        from schedule JOIN student ON schedule.student_email = student.email\n" +
+                    "        where student_email = ?";
+
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+
+            pstmt.clearParameters();
+            pstmt.setString(1,email); //set the 1 parameter
+
+            rset = pstmt.executeQuery();
+        } catch (SQLException e) {
+            return null;
+        }
+        return rset;
+    }
 }// ontrack.Utilities class
