@@ -5,14 +5,18 @@
 
 <%
     ResultSet courses = null;
+    int scheduleIdNum = -1;
     try{
-        int scheduleIdNum = Integer.parseInt(request.getParameter("id"));
+        scheduleIdNum = Integer.parseInt(request.getParameter("id"));
         courses = util.getSchedule(scheduleIdNum);
     }catch(Exception e){
     response.sendRedirect("home.jsp");
     }
-    //util.printResultSet(courses);
-
+    String scheduleName = "Untitled Schedule";
+    if (scheduleIdNum > 0)
+    {
+        scheduleName = util.getScheduleNameById(scheduleIdNum);
+    }
 
 %>
 
@@ -21,10 +25,10 @@
 <div class="row">
     <div class="col s12">
         <!-- Main Page Content  -->
-        <h1 class="center-text">My Schedule</h1>
+        <h1 class="center-text"><%=scheduleName%></h1>
     </div>
 </div>
-
+<div id="schedule">
 <%
     try
     {
@@ -33,7 +37,8 @@
         String current_semester = courses.getString("course_semester");
         String prev_semester = current_semester;
         String current_year = courses.getString("course_year");
-        out.print(beginYear()); //start a row for first year
+        int rowCount = 0;
+        out.print(beginYear(rowCount)); //start a row for first year
         out.print(semesterCardStart(current_semester, current_year));
         courses.previous();
         while (courses.next())
@@ -43,10 +48,11 @@
             {
                 if (current_semester.equals("FALL"))
                 {
+                    rowCount++;
                     prev_semester = current_semester;
                     out.print(semesterCardEnd());
                     out.print(endYear());
-                    out.print(beginYear());
+                    out.print(beginYear(rowCount));
                     out.print(semesterCardStart(courses.getString("course_semester"), courses.getString("course_year")));
                 }
                 else
@@ -72,18 +78,18 @@
     } catch (SQLException e)
     {
         e.printStackTrace();
-        out.print("<h1>Your Schedule is empty.</h1>");
+        out.print("<h3>Your Schedule is empty.</h3>");
     }
 
 %>
-
+</div>
 
 
 <%!
-    public String beginYear()
+    public String beginYear(int rowNum)
     {
         System.out.println("begin year");
-        return "<div class=\"row\">";
+        return "<div class=\"row\" id=\"row" + rowNum + "\">";
     }
 
     public String endYear()
@@ -121,6 +127,10 @@
     public String semesterCardCourse(String title, String dept, String course_num, int credits, String description)
     {
         System.out.println("add " + title + " to semester");
+        if (dept.equals("null") && course_num.equals("null"))
+        {
+            return "";
+        }
         return "<li>" +
                 "<div class=\"collapsible-header\">" +
                 "<div class=\"collapsible-header-title-left cs\">" +
@@ -143,11 +153,61 @@
     public String addSemesterButton()
     {
         return  "<div class=\"col m12 l4 center\" style=\"padding-top: 4rem;\">" +
-                "<button class=\"btn waves-effect waves-light btn-xlarge\" type=\"button\" name=\"action\">" +
+                "<button class=\"btn waves-effect waves-light btn-xlarge\" type=\"button\" onclick=\"addNewSemester()\" name=\"action\">" +
                 "<i class=\"material-icons center\">add</i>" +
                 "</button>" +
                 "</div>";
     }
 %>
 
+<script>
+    function addNewSemester()
+    {
+
+        $.ajax({
+            type: 'post',
+            url:'addNewSemesterToCourse.jsp',
+            data: {
+                id: getParameterByName("id")
+            },
+            complete: function (response)
+            {
+                if (response)
+                {
+                    var text = response.responseText;
+                    //do stuff
+                    if (text == null)
+                    {
+                        //failure
+                    }
+                    else
+                    {
+                        //add new semester card (a blank one)
+                        //if added to fall, add a new year row, then a semester
+                        if (text == "FALL")
+                        {
+
+                            var schedule = document.getElementById("schedule").appendChild();
+                            document.getElementById("works-on-form").appendChild(clone);
+
+                        }
+
+
+                    }
+                }
+            }
+        });
+    }
+
+    function getParameterByName(name, url) {
+        if (!url) url = window.location.href;
+        name = name.replace(/[\[\]]/g, "\\$&");
+        var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+                results = regex.exec(url);
+        if (!results) return null;
+        if (!results[2]) return '';
+        return decodeURIComponent(results[2].replace(/\+/g, " "));
+    }
+
+</script>
 <jsp:include page="footer.jsp" />
