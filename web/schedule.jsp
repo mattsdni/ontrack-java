@@ -38,11 +38,13 @@
         String prev_semester = current_semester;
         String current_year = courses.getString("course_year");
         int rowCount = 0;
+        int courseCount=0;
         out.print(beginYear(rowCount)); //start a row for first year
         out.print(semesterCardStart(current_semester, current_year));
         courses.previous();
         while (courses.next())
         {
+            courseCount++;
             current_semester = courses.getString("course_semester");
             if (current_semester.compareTo(prev_semester) != 0)
             {
@@ -70,7 +72,7 @@
             int credits = courses.getInt("credits");
             String description = courses.getString("description");
 
-            out.print(semesterCardCourse(title, dept, course_num, credits, description));
+            out.print(semesterCardCourse(title, dept, course_num, credits, description, courseCount));
         }
         out.print(semesterCardEnd());
         out.print(addSemesterButton());
@@ -124,14 +126,14 @@
                         "<p>Total Credits: 17</p>" +
                 "</div></div></div></div></div></div>";
     }
-    public String semesterCardCourse(String title, String dept, String course_num, int credits, String description)
+    public String semesterCardCourse(String title, String dept, String course_num, int credits, String description, int courseId)
     {
         System.out.println("add " + title + " to semester");
         if (dept.equals("null") && course_num.equals("null"))
         {
             return "";
         }
-        return "<li>" +
+        return "<li id = course" + courseId + ">" +
                 "<div class=\"collapsible-header\">" +
                 "<div class=\"collapsible-header-title-left cs\">" +
                 dept + " " + course_num +
@@ -144,7 +146,7 @@
                 "<h5 class=\"center-text\">" + title + "</h5>" +
                 "<p>" + description +"</p>" +
                 "<div class=\"center-btn\">" +
-                "<a class=\"waves-effect waves-light btn red\" onclick='alert(\"hi\")'>Remove</a>" +
+                "<a class=\"waves-effect waves-light btn red\" onclick='deleteCourse(this.parentElement.parentElement.parentElement.id)'>Remove</a>" +
                 "</div>" +
                 "</div>" +
                 "</li>";
@@ -203,6 +205,37 @@
         });
     }
 
+    function deleteCourse(courseId)
+    {
+        courseKey = document.getElementById(courseId).firstChild.firstChild.innerHTML.split(" "),
+        $.ajax({
+            type: 'post',
+            url:'deleteCourseFromSchedule.jsp',
+            data: {
+                id: getParameterByName("id"),
+                dept:courseKey[0],
+                num:courseKey[1]
+            },
+            complete: function (response)
+            {
+                if (response)
+                {
+                    var text = response.responseText;
+                    //do stuff
+                    if (text == null)
+                    {
+                        //failure
+                    }
+                    else
+                    {
+                        console.log(courseId);
+                        $('#'+courseId).remove();
+                    }
+                }
+            }
+        });
+    }
+
     function getParameterByName(name, url) {
         if (!url) url = window.location.href;
         name = name.replace(/[\[\]]/g, "\\$&");
@@ -211,6 +244,11 @@
         if (!results) return null;
         if (!results[2]) return '';
         return decodeURIComponent(results[2].replace(/\+/g, " "));
+    }
+
+    function removeCourseFromSchedule(courseId){
+        console.log(courseId);
+        $('#'+courseId).remove();
     }
 
 </script>

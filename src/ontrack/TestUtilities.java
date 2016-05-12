@@ -178,6 +178,7 @@ public class TestUtilities {
         String dept = keyboard.nextLine();
         System.out.print("Enter course number: ");
         String course_number = keyboard.nextLine();
+        System.out.print("Enter schedule id: ");
         int scheduleID = keyboard.nextInt();
         printRowsAffected(testObj.deleteCourse(dept, course_number, scheduleID));
     }

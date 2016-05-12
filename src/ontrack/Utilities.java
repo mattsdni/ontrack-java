@@ -231,9 +231,10 @@ public class Utilities {
     }
 
     /**
-     * Deletes a course from course table in db
+     * Deletes a course from a given schedule
      * @param dept
      * @param course_number
+     * @param schedule_id
      * @return (1) the row count for SQL Data Manipulation Language (DML) statements
      *         (2) 0 for SQL statements that return nothing
      *         (3) -1 for failure
