@@ -182,16 +182,20 @@
                     }
                     else
                     {
+                        var rowNum = 12; //TODO: find largest row number
                         //add new semester card (a blank one)
                         //if added to fall, add a new year row, then a semester
                         if (text == "FALL")
                         {
-
-                            var schedule = document.getElementById("schedule").appendChild();
-                            document.getElementById("works-on-form").appendChild(clone);
-
+                            var schedule = document.getElementById("schedule");
+                            var d = document.createElement('div');
+                            d.className += "row";
+                            d.id = "row" + (rowNum+1);
+                            schedule.appendChild(d);
                         }
-
+                        var blank_card = document.createElement('div');
+                        var row = document.getElementById((rowNum+1)+"");
+                        //TODO: add the content to the innerHTML of the card then append it to the row or soemthing
 
                     }
                 }
