@@ -54,6 +54,9 @@
                     prev_semester = current_semester;
                     out.print(semesterCardEnd());
                     out.print(endYear());
+                    int year = (Integer.parseInt(current_year));
+                    year++;
+                    current_year = year+"";
                     out.print(beginYear(rowCount));
                     out.print(semesterCardStart(courses.getString("course_semester"), courses.getString("course_year")));
                 }
@@ -75,8 +78,30 @@
             out.print(semesterCardCourse(title, dept, course_num, credits, description, courseCount));
         }
         out.print(semesterCardEnd());
-        out.print(addSemesterButton());
-        out.print(endYear());
+
+        switch (current_semester)
+        {
+            case "SPRING":
+                out.print(endYear());
+                rowCount++;
+                out.print(beginYear(rowCount));
+                out.print(semesterCardStart(util.whichSemesterComesAfter(current_semester), "" + (1 + Integer.parseInt(current_year))));
+                out.print(semesterCardEnd());
+                out.print(endYear());
+
+                break;
+            case "J-TERM":
+                out.print(semesterCardStart(util.whichSemesterComesAfter(current_semester), current_year));
+                out.print(semesterCardEnd());
+                out.print(endYear());
+
+                break;
+            default:
+                out.print(semesterCardStart(util.whichSemesterComesAfter(current_semester), current_year));
+                out.print(semesterCardEnd());
+                out.print(endYear());
+                break;
+        }
     } catch (SQLException e)
     {
         e.printStackTrace();
@@ -91,7 +116,7 @@
     public String beginYear(int rowNum)
     {
         System.out.println("begin year");
-        return "<div class=\"row\" id=\"row" + rowNum + "\">";
+        return "<div class=\"row\" id=\"srow" + rowNum + "\">";
     }
 
     public String endYear()
@@ -165,7 +190,7 @@
 <script>
     function addNewSemester()
     {
-
+        console.log("hiiii");
         $.ajax({
             type: 'post',
             url:'addNewSemesterToCourse.jsp',
@@ -184,7 +209,12 @@
                     }
                     else
                     {
-                        var rowNum = 12; //TODO: find largest row number
+                        var row_nodes = document.querySelectorAll('*[id^="srow"]');
+                        var id = row_nodes[row_nodes.length-1].id;
+                        var rowNum = id.substring(4);
+                        rowNum++;
+
+                        //var rowNum = 12; //TODO: find largest row number
                         //add new semester card (a blank one)
                         //if added to fall, add a new year row, then a semester
                         if (text == "FALL")

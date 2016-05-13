@@ -648,10 +648,15 @@ public class Utilities {
             rset.next();
             String year = rset.getString(1);
             String semester = rset.getString(2);
-            sql = "INSERT INTO `dt367_2016`.`has_course` (`schedule_id`, `department`, `course_number`, `course_semester`, `course_year`) \n" +
-                    "VALUES (" + id + ", 'null', 'null', '" + year +"', '" + semester +"');";
-            stmt = conn.createStatement();
-            stmt.executeUpdate(sql);
+            sql = "INSERT INTO has_course (schedule_id, department, course_number, course_semseter, course_year) " +
+                    "VALUES (?, ?, ?, ?, ?)";
+            PreparedStatement s = conn.prepareStatement(sql);
+            s.setString(1, id);
+            s.setString(2, "null");
+            s.setString(3, "null");
+            s.setString(4, semester);
+            s.setString(5, year);
+            s.executeUpdate(sql);
             return whichSemesterComesAfter(semester);
         } catch (SQLException e)
         {
@@ -660,7 +665,7 @@ public class Utilities {
         return null;
     }
 
-    private String whichSemesterComesAfter(String semester)
+    public String whichSemesterComesAfter(String semester)
     {
         if (semester.equals("FALL"))
             return "J-TERM";

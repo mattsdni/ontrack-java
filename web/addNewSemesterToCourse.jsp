@@ -7,6 +7,7 @@
 <jsp:useBean id="myUtil" class="ontrack.Utilities" scope="session"/>
 
 <%
+    System.out.println("trying to do stuff");
     if (request.getMethod().equals("POST"))
     {
         String id = request.getParameter("id");
