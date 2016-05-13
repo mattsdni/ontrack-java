@@ -79,28 +79,28 @@
         }
         out.print(semesterCardEnd());
 
-        switch (current_semester)
+        if (current_semester.equals("SPRING"))
         {
-            case "SPRING":
-                out.print(endYear());
-                rowCount++;
-                out.print(beginYear(rowCount));
-                out.print(semesterCardStart(util.whichSemesterComesAfter(current_semester), "" + (1 + Integer.parseInt(current_year))));
-                out.print(semesterCardEnd());
-                out.print(endYear());
+            out.print(endYear());
+            rowCount++;
+            out.print(beginYear(rowCount));
+            out.print(semesterCardStart(util.whichSemesterComesAfter(current_semester), ""+(1+Integer.parseInt(current_year))));
+            out.print(semesterCardEnd());
+            out.print(endYear());
 
-                break;
-            case "J-TERM":
-                out.print(semesterCardStart(util.whichSemesterComesAfter(current_semester), current_year));
-                out.print(semesterCardEnd());
-                out.print(endYear());
+        }
+        else if (current_semester.equals("J-TERM"))
+        {
+            out.print(semesterCardStart(util.whichSemesterComesAfter(current_semester), current_year));
+            out.print(semesterCardEnd());
+            out.print(endYear());
 
-                break;
-            default:
-                out.print(semesterCardStart(util.whichSemesterComesAfter(current_semester), current_year));
-                out.print(semesterCardEnd());
-                out.print(endYear());
-                break;
+        }
+        else
+        {
+            out.print(semesterCardStart(util.whichSemesterComesAfter(current_semester), current_year));
+            out.print(semesterCardEnd());
+            out.print(endYear());
         }
     } catch (SQLException e)
     {
