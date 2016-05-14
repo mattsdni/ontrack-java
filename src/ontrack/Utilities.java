@@ -774,7 +774,7 @@ public class Utilities {
 
     public LinkedList<String[]> getAllCourses() throws SQLException
     {
-        LinkedList<String[]> result = new LinkedList<>();
+        LinkedList<String[]> result = new LinkedList<String[]>();
         ResultSet rset = null;
         String sql = null;
         if (conn == null)

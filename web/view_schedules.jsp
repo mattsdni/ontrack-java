@@ -7,12 +7,13 @@
     String email = (String) session.getAttribute("email");
     ResultSet rs = myUtil.getSchedulesForStudent(email);
 %>
-<div class = "collection">
-    <%if(rs == null){ %>
+    <%if(!rs.next()){ %>
         <p>You currently don't have any schedules</p>
     <%} else {%>
+        <%rs.beforeFirst();%>
+        <div class = "collection">
         <% while(rs.next()){ %>
-            <a href= <%= "/schedule.jsp?id=" + rs.getString(1) %> class = "collection-item"> <%= rs.getString(2)%> </a>
+            <a href= <%= "/schedule.jsp?id=" + rs.getString(1) %> class="collection-item"> <%= rs.getString(2)%> </a>
         <%} %>
+        </div>
     <%}%>
-</div>
