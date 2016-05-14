@@ -84,7 +84,7 @@
             out.print(endYear());
             rowCount++;
             out.print(beginYear(rowCount));
-            out.print(semesterCardStart(util.whichSemesterComesAfter(current_semester), ""+(1+Integer.parseInt(current_year))));
+            out.print(semesterCardStart(util.whichSemesterComesAfter(current_semester), current_year));
             out.print(semesterCardEnd());
             out.print(endYear());
 
@@ -98,7 +98,7 @@
         }
         else
         {
-            out.print(semesterCardStart(util.whichSemesterComesAfter(current_semester), current_year));
+            out.print(semesterCardStart(util.whichSemesterComesAfter(current_semester), ""+(1+Integer.parseInt(current_year))));
             out.print(semesterCardEnd());
             out.print(endYear());
         }
