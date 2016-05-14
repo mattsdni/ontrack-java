@@ -30,6 +30,7 @@
 </div>
 <div id="schedule">
 <%
+    int rowCount = 0;
     try
     {
         System.out.println("-----new-----");
@@ -37,7 +38,6 @@
         String current_semester = courses.getString("course_semester");
         String prev_semester = current_semester;
         String current_year = courses.getString("course_year");
-        int rowCount = 0;
         int courseCount=0;
         out.print(beginYear(rowCount)); //start a row for first year
         out.print(semesterCardStart(current_semester, current_year));
@@ -105,7 +105,24 @@
     } catch (SQLException e)
     {
         e.printStackTrace();
-        out.print("<h3>Your Schedule is empty.</h3>");
+        out.print(beginYear(rowCount));
+        ResultSet scheduleStartData = util.getSemesterAndYearOfSchedule(scheduleIdNum);
+        try
+        {
+            scheduleStartData.next();
+        } catch (SQLException e1)
+        {
+            e1.printStackTrace();
+        }
+        try
+        {
+            out.print(semesterCardStart(scheduleStartData.getString(1), scheduleStartData.getString(2)));
+        } catch (SQLException e1)
+        {
+            e1.printStackTrace();
+        }
+        out.print(semesterCardEnd());
+        out.print(endYear());
     }
 
 %>

@@ -623,6 +623,25 @@ public class Utilities {
         return rset;
     }
 
+    public ResultSet getSemesterAndYearOfSchedule(int id)
+    {
+        ResultSet rset = null;
+        String sql = null;
+        if (conn == null)
+            openDB();
+
+        try {
+            // create a Statement and an SQL string for the statement
+            sql = "SELECT starting_semester, starting_year from schedule where id = 1";
+            Statement s = conn.createStatement();
+            rset = s.executeQuery(sql);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+        return rset;
+    }
+
     /**
      * Adds the null course to a new semester on the end of schedule
      * effectively adding a blank semester to the schedule.
