@@ -31,6 +31,7 @@
 <div id="schedule">
 <%
     int rowCount = 0;
+    int semester_credits = 0;
     try
     {
         System.out.println("-----new-----");
@@ -52,7 +53,8 @@
                 {
                     rowCount++;
                     prev_semester = current_semester;
-                    out.print(semesterCardEnd());
+                    out.print(semesterCardEnd(semester_credits));
+                    semester_credits = 0;
                     out.print(endYear());
                     int year = (Integer.parseInt(current_year));
                     year++;
@@ -63,7 +65,8 @@
                 else
                 {
                     prev_semester = current_semester;
-                    out.print(semesterCardEnd());
+                    out.print(semesterCardEnd(semester_credits));
+                    semester_credits = 0;
                     out.print(semesterCardStart(courses.getString("course_semester"), courses.getString("course_year")));
                 }
             }
@@ -74,10 +77,11 @@
             String course_num = courses.getString("course_number");
             int credits = courses.getInt("credits");
             String description = courses.getString("description");
+            semester_credits += credits;
 
             out.print(semesterCardCourse(title, dept, course_num, credits, description, courseCount));
         }
-        out.print(semesterCardEnd());
+        out.print(semesterCardEnd(semester_credits));
 
         if (current_semester.equals("SPRING"))
         {
@@ -85,21 +89,21 @@
             rowCount++;
             out.print(beginYear(rowCount));
             out.print(semesterCardStart(util.whichSemesterComesAfter(current_semester), current_year));
-            out.print(semesterCardEnd());
+            out.print(semesterCardEnd(0));
             out.print(endYear());
 
         }
         else if (current_semester.equals("J-TERM"))
         {
             out.print(semesterCardStart(util.whichSemesterComesAfter(current_semester), current_year));
-            out.print(semesterCardEnd());
+            out.print(semesterCardEnd(0));
             out.print(endYear());
 
         }
         else
         {
             out.print(semesterCardStart(util.whichSemesterComesAfter(current_semester), ""+(1+Integer.parseInt(current_year))));
-            out.print(semesterCardEnd());
+            out.print(semesterCardEnd(0));
             out.print(endYear());
         }
     } catch (SQLException e)
@@ -121,7 +125,7 @@
         {
             e1.printStackTrace();
         }
-        out.print(semesterCardEnd());
+        out.print(semesterCardEnd(semester_credits));
         out.print(endYear());
     }
 
@@ -147,13 +151,13 @@
         //System.out.println("semester start");
         return "<div class='col m12 l4 cards-container'>" +
                 "<div class=\"cardpad\">" +
-                "<div class=\"card hoverable z-depth-1 semester\" id=\"" + semester + year + " \" onclick='highlightSemester(\"" + semester + year + "\")'>" +
+                "<div class=\"card hoverable z-depth-1 semester\" id=\"" + semester + year + "\" onclick='highlightSemester(\"" + semester + year + "\")'>" +
                 "<div class=\"card-content black-text\">" +
                 "<span class=\"card-title\">" + semester + " " + year + "</span>" +
                 "<ul class=\"collapsible z-depth-0\" data-collapsible=\"accordion\" id=\"fall2016courselist\">";
     }
 
-    public String semesterCardEnd()
+    public String semesterCardEnd(int credits)
     {
         System.out.println("semester end");
         return "</div>" +
@@ -165,7 +169,7 @@
                 "        </button>" +
                 "</div>" +
                     "<div class=\"col s6 right-text\">" +
-                        "<p>Total Credits: 17</p>" +
+                        "<p>Total Credits: " + credits + "</p>" +
                 "</div></div></div></div></div></div>";
     }
     public String semesterCardCourse(String title, String dept, String course_num, int credits, String description, int courseId)
