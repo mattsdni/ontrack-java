@@ -53,7 +53,7 @@
                 {
                     rowCount++;
                     prev_semester = current_semester;
-                    out.print(semesterCardEnd(semester_credits));
+                    out.print(semesterCardEnd(semester_credits, current_year, current_semester));
                     semester_credits = 0;
                     out.print(endYear());
                     int year = (Integer.parseInt(current_year));
@@ -65,7 +65,7 @@
                 else
                 {
                     prev_semester = current_semester;
-                    out.print(semesterCardEnd(semester_credits));
+                    out.print(semesterCardEnd(semester_credits, current_year, current_semester));
                     semester_credits = 0;
                     out.print(semesterCardStart(courses.getString("course_semester"), courses.getString("course_year")));
                 }
@@ -81,7 +81,7 @@
 
             out.print(semesterCardCourse(title, dept, course_num, credits, description, courseCount));
         }
-        out.print(semesterCardEnd(semester_credits));
+        out.print(semesterCardEnd(semester_credits, current_year, current_semester));
 
         if (current_semester.equals("SPRING"))
         {
@@ -89,21 +89,21 @@
             rowCount++;
             out.print(beginYear(rowCount));
             out.print(semesterCardStart(util.whichSemesterComesAfter(current_semester), current_year));
-            out.print(semesterCardEnd(0));
+            out.print(semesterCardEnd(0, current_year, util.whichSemesterComesAfter(current_semester)));
             out.print(endYear());
 
         }
         else if (current_semester.equals("J-TERM"))
         {
             out.print(semesterCardStart(util.whichSemesterComesAfter(current_semester), current_year));
-            out.print(semesterCardEnd(0));
+            out.print(semesterCardEnd(0, current_year, util.whichSemesterComesAfter(current_semester)));
             out.print(endYear());
 
         }
         else
         {
             out.print(semesterCardStart(util.whichSemesterComesAfter(current_semester), ""+(1+Integer.parseInt(current_year))));
-            out.print(semesterCardEnd(0));
+            out.print(semesterCardEnd(0, ""+(1+Integer.parseInt(current_year)), util.whichSemesterComesAfter(current_semester)));
             out.print(endYear());
         }
     } catch (SQLException e)
@@ -125,11 +125,17 @@
         {
             e1.printStackTrace();
         }
-        out.print(semesterCardEnd(semester_credits));
+        out.print(semesterCardEnd(semester_credits,scheduleStartData.getString(2) , scheduleStartData.getString(1)));
         out.print(endYear());
     }
 
 %>
+</div>
+
+<div class="row">
+    <div class="col s12 center">
+        <a href="evalSchedule.jsp?id=<%=scheduleIdNum%>" class="waves-effect waves-light btn-large">Evaluate Schedule</a>
+    </div>
 </div>
 
 
@@ -157,16 +163,16 @@
                 "<ul class=\"collapsible z-depth-0\" data-collapsible=\"accordion\" id=\"fall2016courselist\">";
     }
 
-    public String semesterCardEnd(int credits)
+    public String semesterCardEnd(int credits, String year, String semester)
     {
         System.out.println("semester end");
         return "</div>" +
                 "<div class=\"card-action\">" +
                 "<div class=\"row\">" +
                 "<div class=\"col s6\" style=\"padding-top: 0.7em;\">" +
-                "<button class=\"btn waves-effect waves-light\" type=\"button\" name=\"action\">" +
-                "            <i class=\"material-icons center\">add</i>" +
-                "        </button>" +
+                "<!-- Modal Trigger -->\n" +
+                "<a onclick=\"setGlobal(\'" + semester +"\', \'" + year + "\')\" id=\""+ semester + "-" + year +"\" class=\"modal-trigger waves-effect waves-light btn\" href=\"#addCourseModal\">" +
+                "            <i class=\"material-icons center\">add</i></a>" +
                 "</div>" +
                     "<div class=\"col s6 right-text\">" +
                         "<p>Total Credits: " + credits + "</p>" +
@@ -235,7 +241,6 @@
                         var rowNum = id.substring(4);
                         rowNum++;
 
-                        //var rowNum = 12; //TODO: find largest row number
                         //add new semester card (a blank one)
                         //if added to fall, add a new year row, then a semester
                         if (text == "FALL")
@@ -301,6 +306,13 @@
         console.log(courseId);
         $('#'+courseId).remove();
     }
+
+    function setGlobal(sem, yr)
+    {
+        semester = sem;
+        year = yr;
+    }
+
 
 </script>
 

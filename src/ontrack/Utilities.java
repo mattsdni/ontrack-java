@@ -642,47 +642,6 @@ public class Utilities {
         return rset;
     }
 
-    /**
-     * Adds the null course to a new semester on the end of schedule
-     * effectively adding a blank semester to the schedule.
-     * @param id of the schedule
-     * @return the name of the semester that it was added to
-     */
-    public String addNewSemesterToEndOfSchedule(String id)
-    {
-        String result = null;
-        String sql = null;
-        ResultSet rset = null;
-        if (conn == null)
-        {
-            openDB();
-        }
-
-        try
-        {
-            //TODO: put this whole thing into 1 sql statement
-            sql = "select course_year, course_semester from has_course where schedule_id = 1 order by -course_year, course_semester limit 1";
-            Statement stmt = conn.createStatement();
-            rset = stmt.executeQuery(sql);
-            rset.next();
-            String year = rset.getString(1);
-            String semester = rset.getString(2);
-            sql = "INSERT INTO has_course (schedule_id, department, course_number, course_semseter, course_year) " +
-                    "VALUES (?, ?, ?, ?, ?)";
-            PreparedStatement s = conn.prepareStatement(sql);
-            s.setString(1, id);
-            s.setString(2, "null");
-            s.setString(3, "null");
-            s.setString(4, semester);
-            s.setString(5, year);
-            s.executeUpdate(sql);
-            return whichSemesterComesAfter(semester);
-        } catch (SQLException e)
-        {
-            e.printStackTrace();
-        }
-        return null;
-    }
 
     public String whichSemesterComesAfter(String semester)
     {
@@ -799,6 +758,32 @@ public class Utilities {
         for(String[] r: result)
         {
             System.out.println(r[0]);
+        }
+        return result;
+    }
+
+    public int addCourseToSchedule(String scheduleId, String department,
+                                   String courseNumber, String semester, String year)
+    {
+        int result = 0;
+        String sql = null;
+        ResultSet rset = null;
+        if (conn == null)
+        {
+            openDB();
+        }
+
+        try
+        {
+            sql = "INSERT INTO has_course (schedule_id, department, course_number, course_semester, course_year)" +
+                    "VALUES (\"" + scheduleId + "\", \"" + department + "\", \"" + courseNumber + "\", \"" + semester + "\", \"" + year + "\")";
+
+            Statement stmt = conn.createStatement();
+            result = stmt.executeUpdate(sql);
+
+        } catch (SQLException e)
+        {
+            e.printStackTrace();
         }
         return result;
     }
