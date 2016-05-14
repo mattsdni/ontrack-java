@@ -6,8 +6,7 @@
     LinkedList<String[]> courses = myUtil.getAllCourses();
 %>
 
-<!-- Modal Trigger -->
-<a class="modal-trigger waves-effect waves-light btn" href="#addCourseModal">Modal</a>
+
 
 <!-- Modal Structure -->
 <div id="addCourseModal" class="modal modal-fixed-footer">
@@ -20,10 +19,10 @@
                     //department, course_number, name, credits
             %>
             <tr>
-                <td><%=s[0]+s[1]%></td>
+                <td><%=s[0] + "-" + s[1]%></td>
                 <td><%=s[2]%></td>
                 <td>Credits: <%=s[3]%></td>
-                <td><a class="btn waves-effect waves-light">+</a></td>
+                <td><a onclick="addCourse(this)" id="addCourse" class="btn waves-effect waves-light">+</a></td>
             </tr>
             <% } %>
             </tbody>
@@ -48,6 +47,33 @@
             }
         });
     }
+
+    function addCourse(arg){
+        var info = arg.parentElement.parentElement.getElementsByTagName("td")[0].innerHTML;
+        var x = info.split('-');
+        var department = x[0];
+        var number = x[1];
+        $.ajax({
+            type: 'post',
+            url:'addCourseToSchedule.jsp',
+            data: {
+                schedule_id: getParameterByName("id"),
+                department: department,
+                course_number: number,
+                course_semester: semester,
+                course_year: year
+            },
+            complete: function (response)
+            {
+                if (response)
+                {
+                    var text = response.responseText;
+                    console.log(text);
+                }
+            }
+        });
+
+    };
 </script>
 <style>
     table {
