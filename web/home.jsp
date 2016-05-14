@@ -11,17 +11,17 @@
             <form action="addSchedule.jsp" onsubmit="return validateForm()" name="create_schedule" method="get">
                 <div class="row">
                     <div class="col s12">
-                        <h5>Schedule Name</h5> <input type="text" name="scheduleName" placeholder="Please name your schedule">
+                        <h5>Schedule Name</h5> <input type="text" name="scheduleName" maxlength="128" placeholder="Please name your schedule" required>
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="col s12">
                         <h5>Choose a degree  </h5>
-                        <input name="degree" type="radio" id="test1" value="B.A." class = "radio-input"/>
+                        <input name="degree" type="radio" id="test1" value="B.A." class = "radio-input" required/>
                         <label for="test1" class = "radio-label">B.A.</label>
 
-                        <input name="degree" type="radio" id="test2" value="B.S." class = "radio-input"/>
+                        <input name="degree" type="radio" id="test2" value="B.S." class = "radio-input" required/>
                         <label for="test2" class = "radio-label">B.S.</label>
                     </div>
                 </div>
@@ -29,13 +29,13 @@
                 <div class="row">
                     <div class="col s12">
                         <h5>Starting Semester </h5>
-                        <input name="startingSemester" type="radio" id="test3" value="FALL" class = "radio-input"/>
+                        <input name="startingSemester" type="radio" id="test3" value="FALL" class = "radio-input" required/>
                         <label for="test3" class = "radio-label">FALL</label>
 
-                        <input name="startingSemester" type="radio" id="test4" value="J-TERM" class = "radio-input"/>
+                        <input name="startingSemester" type="radio" id="test4" value="J-TERM" class = "radio-input" required/>
                         <label for="test4" class = "radio-label">J-TERM</label>
 
-                        <input name="startingSemester" type="radio" id="test5" value="SPRING" class = "radio-input"/>
+                        <input name="startingSemester" type="radio" id="test5" value="SPRING" class = "radio-input" required/>
                         <label for="test5" class = "radio-label">SPRING</label>
                     </div>
                 </div>

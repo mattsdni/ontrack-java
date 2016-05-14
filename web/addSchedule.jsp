@@ -19,12 +19,12 @@
 
 <%
     Object target = session.getAttribute("email");
-    String target1 = (String)target;
-    String target2 = request.getParameter("degree");
-    String target3 = request.getParameter("startingSemester");
-    String target4 = request.getParameter("startingYear");
-    String target5 = request.getParameter("scheduleName");
-    util.addSchedule(target1,target2,target3,target4,target5);
+    String email = (String)target;
+    String degree = request.getParameter("degree");
+    String startingSemester = request.getParameter("startingSemester");
+    String startingYear = request.getParameter("startingYear");
+    String scheduleName = request.getParameter("scheduleName");
+    util.addSchedule(email,degree,startingSemester,startingYear,scheduleName);
 
     ResultSet rs = util.getScheduleId();
     rs.next();
