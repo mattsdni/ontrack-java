@@ -132,6 +132,12 @@
 %>
 </div>
 
+<div class="row">
+    <div class="col s12 center">
+        <a href="evalSchedule.jsp?id=<%=scheduleIdNum%>" class="waves-effect waves-light btn-large">Evaluate Schedule</a>
+    </div>
+</div>
+
 
 <%!
     public String beginYear(int rowNum)
@@ -235,7 +241,6 @@
                         var rowNum = id.substring(4);
                         rowNum++;
 
-                        //var rowNum = 12; //TODO: find largest row number
                         //add new semester card (a blank one)
                         //if added to fall, add a new year row, then a semester
                         if (text == "FALL")
