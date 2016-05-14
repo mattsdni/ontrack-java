@@ -52,8 +52,16 @@
                 if (current_semester.equals("FALL"))
                 {
                     rowCount++;
+                    if (prev_semester.equals("J-TERM") || prev_semester.equals("SPRING"))
+                    {
+                        String tmp_year = ""+(1+(Integer.parseInt(current_year)));
+                        out.print(semesterCardEnd(semester_credits, tmp_year, prev_semester));
+                    }
+                    else
+                    {
+                        out.print(semesterCardEnd(semester_credits, current_year, prev_semester));
+                    }
                     prev_semester = current_semester;
-                    out.print(semesterCardEnd(semester_credits, current_year, current_semester));
                     semester_credits = 0;
                     out.print(endYear());
                     int year = (Integer.parseInt(current_year));
@@ -64,8 +72,16 @@
                 }
                 else
                 {
+                    if (prev_semester.equals("J-TERM") || prev_semester.equals("SPRING"))
+                    {
+                        String tmp_year = ""+(1+(Integer.parseInt(current_year)));
+                        out.print(semesterCardEnd(semester_credits, tmp_year, prev_semester));
+                    }
+                    else
+                    {
+                        out.print(semesterCardEnd(semester_credits, current_year, prev_semester));
+                    }
                     prev_semester = current_semester;
-                    out.print(semesterCardEnd(semester_credits, current_year, current_semester));
                     semester_credits = 0;
                     out.print(semesterCardStart(courses.getString("course_semester"), courses.getString("course_year")));
                 }
@@ -125,6 +141,11 @@
         {
             e1.printStackTrace();
         }
+        String s1 = scheduleStartData.getString(2);
+        String s2 = scheduleStartData.getString(1);
+        System.out.println(s1);
+        System.out.println(s2);
+
         out.print(semesterCardEnd(semester_credits,scheduleStartData.getString(2) , scheduleStartData.getString(1)));
         out.print(endYear());
     }

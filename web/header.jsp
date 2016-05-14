@@ -33,7 +33,12 @@
 <body>
 
 <nav class="light-blue lighten-1" role="navigation">
-    <div class="nav-wrapper container"><a id="logo-container" href="index.jsp" class="brand-logo">OnTrack</a>
+    <div class="nav-wrapper container"><a id="logo-container" href="<%
+     if (session.getAttribute("email") == null)
+        out.print("index.jsp");
+     else
+         out.print("home.jsp"); %>" class="brand-logo">OnTrack</a>
+
         <ul class="right hide-on-med-and-down">
             <% if (session.getAttribute("email") == null) { %>
 
@@ -44,7 +49,12 @@
         </ul>
 
         <ul id="nav-mobile" class="side-nav">
-            <li><a href="home.jsp">Navbar Link</a></li>
+            <% if (session.getAttribute("email") == null) { %>
+
+            <% } else { %>
+            <li><a href="logout.jsp">Logout</a></li>
+
+            <% } %>
         </ul>
         <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
     </div>
