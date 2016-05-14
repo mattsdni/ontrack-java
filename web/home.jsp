@@ -8,7 +8,7 @@
         <div class="collapsible-header"><i class="material-icons">today</i>Create a Schedule</div>
         <div class="collapsible-body container">
         <br>
-            <form action="addSchedule.jsp" onsubmit="return validateForm()" name="create_schedule" method="get">
+            <form action="addSchedule.jsp" name="create_schedule" method="get">
                 <div class="row">
                     <div class="col s12">
                         <h5>Schedule Name</h5> <input type="text" name="scheduleName" maxlength="128" placeholder="Please name your schedule" required>

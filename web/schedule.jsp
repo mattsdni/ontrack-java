@@ -104,15 +104,15 @@
             out.print(endYear());
             rowCount++;
             out.print(beginYear(rowCount));
-            out.print(semesterCardStart(util.whichSemesterComesAfter(current_semester), current_year));
-            out.print(semesterCardEnd(0, current_year, util.whichSemesterComesAfter(current_semester)));
+            out.print(semesterCardStart(util.whichSemesterComesAfter(current_semester), ""+(1+Integer.parseInt(current_year))));
+            out.print(semesterCardEnd(0, ""+(1+Integer.parseInt(current_year)), util.whichSemesterComesAfter(current_semester)));
             out.print(endYear());
 
         }
         else if (current_semester.equals("J-TERM"))
         {
-            out.print(semesterCardStart(util.whichSemesterComesAfter(current_semester), current_year));
-            out.print(semesterCardEnd(0, current_year, util.whichSemesterComesAfter(current_semester)));
+            out.print(semesterCardStart(util.whichSemesterComesAfter(current_semester), ""+(1+Integer.parseInt(current_year))));
+            out.print(semesterCardEnd(0, ""+(1+Integer.parseInt(current_year)), util.whichSemesterComesAfter(current_semester)));
             out.print(endYear());
 
         }
