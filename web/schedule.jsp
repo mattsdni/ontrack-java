@@ -52,8 +52,16 @@
                 if (current_semester.equals("FALL"))
                 {
                     rowCount++;
+                    if (prev_semester.equals("J-TERM") || prev_semester.equals("SPRING"))
+                    {
+                        String tmp_year = ""+(1+(Integer.parseInt(current_year)));
+                        out.print(semesterCardEnd(semester_credits, tmp_year, prev_semester));
+                    }
+                    else
+                    {
+                        out.print(semesterCardEnd(semester_credits, current_year, prev_semester));
+                    }
                     prev_semester = current_semester;
-                    out.print(semesterCardEnd(semester_credits, current_year, current_semester));
                     semester_credits = 0;
                     out.print(endYear());
                     int year = (Integer.parseInt(current_year));
@@ -64,8 +72,16 @@
                 }
                 else
                 {
+                    if (prev_semester.equals("J-TERM") || prev_semester.equals("SPRING"))
+                    {
+                        String tmp_year = ""+(1+(Integer.parseInt(current_year)));
+                        out.print(semesterCardEnd(semester_credits, tmp_year, prev_semester));
+                    }
+                    else
+                    {
+                        out.print(semesterCardEnd(semester_credits, current_year, prev_semester));
+                    }
                     prev_semester = current_semester;
-                    out.print(semesterCardEnd(semester_credits, current_year, current_semester));
                     semester_credits = 0;
                     out.print(semesterCardStart(courses.getString("course_semester"), courses.getString("course_year")));
                 }
@@ -88,15 +104,15 @@
             out.print(endYear());
             rowCount++;
             out.print(beginYear(rowCount));
-            out.print(semesterCardStart(util.whichSemesterComesAfter(current_semester), current_year));
-            out.print(semesterCardEnd(0, current_year, util.whichSemesterComesAfter(current_semester)));
+            out.print(semesterCardStart(util.whichSemesterComesAfter(current_semester), ""+(1+Integer.parseInt(current_year))));
+            out.print(semesterCardEnd(0, ""+(1+Integer.parseInt(current_year)), util.whichSemesterComesAfter(current_semester)));
             out.print(endYear());
 
         }
         else if (current_semester.equals("J-TERM"))
         {
-            out.print(semesterCardStart(util.whichSemesterComesAfter(current_semester), current_year));
-            out.print(semesterCardEnd(0, current_year, util.whichSemesterComesAfter(current_semester)));
+            out.print(semesterCardStart(util.whichSemesterComesAfter(current_semester), ""+(1+Integer.parseInt(current_year))));
+            out.print(semesterCardEnd(0, ""+(1+Integer.parseInt(current_year)), util.whichSemesterComesAfter(current_semester)));
             out.print(endYear());
 
         }
@@ -125,6 +141,11 @@
         {
             e1.printStackTrace();
         }
+        String s1 = scheduleStartData.getString(2);
+        String s2 = scheduleStartData.getString(1);
+        System.out.println(s1);
+        System.out.println(s2);
+
         out.print(semesterCardEnd(semester_credits,scheduleStartData.getString(2) , scheduleStartData.getString(1)));
         out.print(endYear());
     }
@@ -187,11 +208,11 @@
         }
         return "<li id = course" + courseId + ">" +
                 "<div class=\"collapsible-header\">" +
-                "<div class=\"collapsible-header-title-left cs\">" +
-                dept + " " + course_num +
+                "<div class=\"collapsible-header-title-left " + dept + "\">" +
+                    dept + " " + course_num +
                 "</div>" +
                 "<div class=\"collapsible-header-title-right\">" +
-                "Fall/Spring" +
+                "<span>" + credits + "</span>" +
                 "</div>" +
                 "</div>" +
                 "<div class=\"collapsible-body\">" +

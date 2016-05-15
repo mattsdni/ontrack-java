@@ -662,7 +662,7 @@ public class Utilities {
 
         try {
             // create a Statement and an SQL string for the statement
-            sql = "SELECT starting_semester, starting_year from schedule where id = 1";
+            sql = "SELECT starting_semester, starting_year from schedule where id = " + id;
             Statement s = conn.createStatement();
             rset = s.executeQuery(sql);
         } catch (SQLException e) {
