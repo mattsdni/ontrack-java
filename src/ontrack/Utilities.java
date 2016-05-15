@@ -264,7 +264,37 @@ public class Utilities {
             return -1;
         }
     }
-    
+
+
+
+    /**
+     * Deletes a course from a given schedule
+     * @param schedule_id
+     * @return (1) the row count for SQL Data Manipulation Language (DML) statements
+     *         (2) 0 for SQL statements that return nothing
+     *         (3) -1 for failure
+     */
+    public int deleteSchedule(int schedule_id)
+    {
+        if (conn == null)
+            openDB();
+
+        try
+        {
+            PreparedStatement q = conn.prepareStatement("delete from schedule " +
+                    "where id = ?");
+            q.clearParameters();
+            q.setInt(1, schedule_id);
+            return q.executeUpdate();
+        } catch (SQLException e)
+        {
+            System.out.println(e.getMessage());
+            return -1;
+        }
+    }
+
+
+
     /**
      * Checks to see whether the student has met the requirements for graduation
      * @param schedule_id The id of the schedule

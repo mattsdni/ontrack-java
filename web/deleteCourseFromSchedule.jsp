@@ -9,13 +9,11 @@
 <%
     if (request.getMethod().equals("POST"))
     {
-        System.out.println("test1");
         String idString = request.getParameter("id");
         int id = Integer.parseInt(idString);
         String dept = request.getParameter("dept");
         String courseNum = request.getParameter("num");
 
         out.print(myUtil.deleteCourse(dept,courseNum,id));
-        System.out.println("test2");
     }
 %>
