@@ -236,51 +236,6 @@
 %>
 
 <script>
-    function addNewSemester()
-    {
-        console.log("hiiii");
-        $.ajax({
-            type: 'post',
-            url:'addNewSemesterToCourse.jsp',
-            data: {
-                id: getParameterByName("id")
-            },
-            complete: function (response)
-            {
-                if (response)
-                {
-                    var text = response.responseText;
-                    //do stuff
-                    if (text == null)
-                    {
-                        //failure
-                    }
-                    else
-                    {
-                        var row_nodes = document.querySelectorAll('*[id^="srow"]');
-                        var id = row_nodes[row_nodes.length-1].id;
-                        var rowNum = id.substring(4);
-                        rowNum++;
-
-                        //add new semester card (a blank one)
-                        //if added to fall, add a new year row, then a semester
-                        if (text == "FALL")
-                        {
-                            var schedule = document.getElementById("schedule");
-                            var d = document.createElement('div');
-                            d.className += "row";
-                            d.id = "row" + (rowNum+1);
-                            schedule.appendChild(d);
-                        }
-                        var blank_card = document.createElement('div');
-                        var row = document.getElementById((rowNum+1)+"");
-                        //TODO: add the content to the innerHTML of the card then append it to the row or soemthing
-
-                    }
-                }
-            }
-        });
-    }
 
     function deleteCourse(courseId)
     {

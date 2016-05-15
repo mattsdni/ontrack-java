@@ -111,7 +111,7 @@
           <h2 class="center light-blue-text"><i class="material-icons">navigation</i></h2>
           <h5 class="center">Plan your degree</h5>
 
-          <p class="light">Quis graece putant id nam, et sit argumentum intellegam. Sea posse intellegebat ei, pri liber scribentur id. Sea no delectus constituam. Ad duo primis labore, an probo corpora has.</p>
+          <p class="light">Use On Track to plan out your college degree. Make an account and start staying on track.</p>
         </div>
       </div>
       <div class="col s12 m4">
@@ -119,7 +119,7 @@
           <h2 class="center light-blue-text"><i class="material-icons">group</i></h2>
           <h5 class="center">Connect with your advisor</h5>
 
-          <p class="light">Veniam nostro id sit, eum decore soluta intellegam no, per no possit deserunt posidonium. Dico assum et nec, epicurei consequuntur ius ut. Ne aperiri consetetur vim. Purto novum eu pri, ad vero intellegat quo. </p>
+          <p class="light">Add an advisor and keep them up to date. *Future updates will allow advisors to interact with student schedules. </p>
         </div>
       </div>
       <div class="col s12 m4">
@@ -127,7 +127,7 @@
           <h2 class="center light-blue-text"><i class="material-icons">trending_up</i></h2>
           <h5 class="center">Stay on track</h5>
 
-          <p class="light">Mel ut labore conclusionemque, graeci doming eligendi ad usu. Quod sonet cu vix, cum ei purto petentium vulputate, qui alii aliquando te. Mea at eirmod fabulas definitiones. Pri ut corpora mentitum elaboraret. </p>
+          <p class="light">Evaulate your schedules to see if you are on track to achieve your degree. </p>
         </div>
       </div>
     </div>
