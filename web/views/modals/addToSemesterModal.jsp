@@ -74,6 +74,7 @@
         });
 
     };
+
 </script>
 <style>
     table {
@@ -95,6 +96,11 @@
     .modal-footer
     {
         z-index: 99999;
+    }
+
+    #addCourseModal {
+        width: 50vw;
+        min-width: 591px;
     }
 
 </style>

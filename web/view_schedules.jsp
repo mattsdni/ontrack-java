@@ -13,7 +13,44 @@
         <%rs.beforeFirst();%>
         <div class = "collection">
         <% while(rs.next()){ %>
-            <a href= <%= "/schedule.jsp?id=" + rs.getString(1) %> class="collection-item"> <%= rs.getString(2)%> </a>
+            <div class="row" id="sched<%=rs.getString(1)%>">
+                <div class="col s10">
+                    <a href= <%= "/schedule.jsp?id=" + rs.getString(1) %> class="collection-item"> <%= rs.getString(2)%> </a>
+                </div>
+                <div class="col s2">
+                    <a class="waves-effect waves-light btn red" style="margin-top: 2px;" onclick="deleteCourse(<%=rs.getString(1)%>)">Delete</a>
+                </div>
+            </div>
         <%} %>
         </div>
     <%}%>
+
+<script>
+    function deleteCourse(scheduleId)
+    {
+                $.ajax({
+                    type: 'post',
+                    url:'deleteSchedule.jsp',
+                    data: {
+                        id: scheduleId
+                    },
+                    complete: function (response)
+                    {
+                        if (response)
+                        {
+                            var text = response.responseText;
+                            //do stuff
+                            if (text == null)
+                            {
+                                //failure
+                            }
+                            else
+                            {
+                                console.log(scheduleId);
+                                $('#'+'sched'+scheduleId).remove();
+                            }
+                        }
+                    }
+                });
+    }
+</script>
