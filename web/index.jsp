@@ -1,4 +1,22 @@
 <jsp:include page="header.jsp" />
+<jsp:useBean id="myUtil" class="ontrack.Utilities" scope="session"></jsp:useBean>
+<%
+  Cookie[] cookies = request.getCookies();     // request is an instance of type
+  //HttpServletRequest
+
+  for(int i = 0; i < cookies.length; i++)
+  {
+    Cookie c = cookies[i];
+    if (c.getName().equals("email"))
+    {
+      session.setAttribute("email", c.getValue());
+      session.setAttribute("type", "student");
+      session.setAttribute("name", myUtil.getStudentName(c.getValue()));
+      response.sendRedirect("home.jsp");
+      break;
+    }
+  }
+%>
 
 <div class="section no-pad-bot" id="index-banner">
   <div class="container">
@@ -37,7 +55,7 @@
         <div class="row">
           <div class="col s12">
             <p>
-              <input type="checkbox" id="remember">
+              <input type="checkbox" id="remember" name="remember">
               <label for="remember">Remember me</label>
             </p>
           </div>
