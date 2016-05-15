@@ -324,7 +324,7 @@ public class Utilities {
                 printoutList.add("Something went wrong evaluating cs");
             }
     	}
-    	if(CSElectives >= 12){
+    	if(CSElectives >= 0){
     		printoutList.add("You have taken all the required CS Electives");
     	}
     	else {
@@ -391,7 +391,8 @@ public class Utilities {
 		int credits = 0;
 		try {
 			// create a Statement and an SQL string for the statement
-			sql = "(select distinct sum(course.credits) as total_electives " +
+			sql = "(select distinct sum(course.credits)-(select num_credits" +
+                    " from requirements where req_number=5) as total_electives " +
                     "from has_course h join course on h.department = course.department " +
                     "AND h.course_number = course.course_number " +
                   "where schedule_id=? and (h.department, h.course_number) in " +
