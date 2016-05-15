@@ -208,11 +208,11 @@
         }
         return "<li id = course" + courseId + ">" +
                 "<div class=\"collapsible-header\">" +
-                "<div class=\"collapsible-header-title-left cs\">" +
-                dept + " " + course_num +
+                "<div class=\"collapsible-header-title-left " + dept + "\">" +
+                    dept + " " + course_num +
                 "</div>" +
                 "<div class=\"collapsible-header-title-right\">" +
-                "Fall/Spring" +
+                "<span>" + credits + "</span>" +
                 "</div>" +
                 "</div>" +
                 "<div class=\"collapsible-body\">" +

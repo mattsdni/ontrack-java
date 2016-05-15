@@ -9,7 +9,7 @@
     ResultSet rsAdvisor = myUtil.getAdvisor(email);
 %>
 <%if(rsAdvisor.next()){ %>
-    <p>Your current advisor is <%= rsAdvisor.getString(2) %> ( <%= rsAdvisor.getString(1) %> )</p>
+    <p id="current-advisor">Your current advisor is <%= rsAdvisor.getString(2) %> ( <%= rsAdvisor.getString(1) %> )</p>
 <%} else {%>
     <p>You currently do not have an advisor, please select one</p>
 <%}%>

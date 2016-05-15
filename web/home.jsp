@@ -66,11 +66,10 @@
         </div>
     </li>
     <li>
-        <div class="collapsible-header"><i class="material-icons">person_pin</i>Add an advisor</div>
+        <div class="collapsible-header" id="advisor-label"><i class="material-icons">person_pin</i>Add an advisor</div>
         <div class="collapsible-body container">
             <jsp:include page="list_all_advisors.jsp" />
         </div>
     </li>
 </ul>
-
 <jsp:include page="footer.jsp" />
