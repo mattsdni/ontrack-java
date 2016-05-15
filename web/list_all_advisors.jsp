@@ -14,17 +14,57 @@
     <p>You currently do not have an advisor, please select one</p>
 <%}%>
 <div class="input-field">
-    <form action="add_advisor.jsp" method="post">
-        <select name="email">
+        <select name="email" id="listOfAdvisors">
             <option value="" disabled selected>Choose an advisor</option>
         <% while(rsAll.next()){ %>
             <option value= <%=rsAll.getString(2)%> > <%= rsAll.getString(1)%> </option>
             <%} %>
         </select>
         <p class="left-align">
-            <button class="btn waves-effect waves-light" type="submit" name="action">Submit
+            <button class="btn waves-effect waves-light" type="submit" onclick = 'updateAdvisor(document.getElementById("listOfAdvisors").options[document.getElementById("listOfAdvisors").options.selectedIndex].value)' name="action">Submit
                 <i class="material-icons right">send</i>
             </button>
         </p>
-    </form>
 </div>
+
+<script>
+
+    function updateAdvisor(email)
+    {
+                $.ajax({
+                    type: 'post',
+                    url:'add_advisor.jsp',
+                    data: {
+                        email: email
+                    },
+                    complete: function (response)
+                    {
+                        if (response)
+                        {
+                            var text = response.responseText;
+                            console.log(text);
+                            //do stuff
+                            if (text == null)
+                            {
+                                //failure
+                            }
+                            else
+                            {
+                                document.getElementById('current-advisor').innerHTML=text;
+                            }
+                        }
+                    }
+                });
+    }
+
+    function getParameterByName(name, url) {
+        if (!url) url = window.location.href;
+        name = name.replace(/[\[\]]/g, "\\$&");
+        var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+                results = regex.exec(url);
+        if (!results) return null;
+        if (!results[2]) return '';
+        return decodeURIComponent(results[2].replace(/\+/g, " "));
+    }
+
+</script>
