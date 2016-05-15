@@ -22,7 +22,7 @@
                 <td><%=s[0] + "-" + s[1]%></td>
                 <td><%=s[2]%></td>
                 <td>Credits: <%=s[3]%></td>
-                <td><a onclick="addCourse(this)" id="addCourse" class="btn waves-effect waves-light">+</a></td>
+                <td><a onclick="addCourse(this)" id="addCourse" class="btn waves-effect waves-light"><i class="material-icons">add</i></a></td>
             </tr>
             <% } %>
             </tbody>
@@ -72,6 +72,9 @@
                 }
             }
         });
+
+        console.log(arg);
+        arg.classList.add("disabled");
 
     };
 
