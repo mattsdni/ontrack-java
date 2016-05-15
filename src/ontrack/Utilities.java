@@ -818,4 +818,30 @@ public class Utilities {
         return result;
     }
 
+    public String getStudentName(String email)
+    {
+        ResultSet rset = null;
+        String result = "";
+        String sql = null;
+        if (conn == null)
+            openDB();
+
+        try {
+            // create a Statement and an SQL string for the statement
+            sql = "select name from student where email =\"" + email + "\"";
+
+            Statement stmt = conn.createStatement();
+
+
+
+            rset = stmt.executeQuery(sql);
+            rset.next();
+            result = rset.getString("name");
+        } catch (SQLException e) {
+            return null;
+        }
+        return result;
+    }
+
+
 }// ontrack.Utilities class
