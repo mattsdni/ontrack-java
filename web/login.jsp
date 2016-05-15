@@ -6,12 +6,6 @@
     String name = myUtil.login(request.getParameter("email"), request.getParameter("password"));
     if(name != null)
     {
-        if(request.getParameter("remember").equals("on"))
-        {
-            Cookie c = new Cookie("email", request.getParameter("email"));
-            c.setMaxAge(24*60*30);
-            response.addCookie(c);  // response is an instance of type HttpServletReponse
-        }
         session.setAttribute("name", name);
         session.setAttribute("type", "student");
         session.setAttribute("email", request.getParameter("email"));
