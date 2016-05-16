@@ -71,19 +71,19 @@
           </div>
         <div class="row">
           <div class="input-field col s12">
-            <input id="email-register" type="email" class="validate" name="email">
+            <input id="email-register" type="email" class="validate" name="email" required>
             <label for="email-register">Email</label>
           </div>
         </div>
         <div class="row">
           <div class="input-field col s12">
-            <input id="pass-register" type="password" class="validate" name="password">
+            <input id="pass-register" type="password" class="validate" name="password" required>
             <label for="pass-register">Password</label>
           </div>
         </div>
         <div class="row">
           <div class="input-field col s12">
-            <input id="confirmpass" type="password" class="validate" name="confirm-password">
+            <input id="confirmpass" type="password" class="validate" name="confirm-password" required>
             <label for="confirmpass">Confirm Password</label>
           </div>
         </div>
