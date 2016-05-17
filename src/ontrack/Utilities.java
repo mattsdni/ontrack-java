@@ -518,38 +518,30 @@ public class Utilities {
     }
     /**
      * Returns the contents of the given ResultSet in String format
-     * @param rs
+     * @param r
      * @return String representation of ResultSet
      */
-    private String resultSetString(ResultSet rs)
+    private String resultSetString(ResultSet r)
     {
-    	StringBuilder sb = new StringBuilder();
+        String data = "";
         try
         {
-        	rs.beforeFirst();
-            ResultSetMetaData rsmd = rs.getMetaData();
-
-            int numberOfColumns = rsmd.getColumnCount();
-
-           for (int i = 1; i <= numberOfColumns; i++) {
-                String columnName = rsmd.getColumnName(i);
-                sb.append("\t" + columnName);
+            r.beforeFirst();
+            ResultSetMetaData rsmd = r.getMetaData();
+            int n = rsmd.getColumnCount();
+            while (r.next())
+            {
+                for (int i = 1; i <= n; i++)
+                    data += (r.getString(i) + " ");
             }
-            sb.append("\n");
-            while (rs.next()) {
-                for (int i = 1; i <= numberOfColumns; i++) {
-                    String columnValue = rs.getString(i);
-                    sb.append("\t" + columnValue);
-                }
-                sb.append("\n");
-            }
-
-        } catch (SQLException e)
-        {
-            return "Invalid Resultset in resultSetString";
         }
-        return sb.toString();
+        catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+        return data;
     }
+
     /**
      * @return the conn
      */
