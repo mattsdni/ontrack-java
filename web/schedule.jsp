@@ -189,7 +189,7 @@
                 "<div class=\"card hoverable z-depth-1 semester\" id=\"" + semester + year + "\" onclick='highlightSemester(\"" + semester + year + "\")'>" +
                 "<div class=\"card-content black-text\">" +
                 "<span class=\"card-title\">" + semester + " " + year + "</span>" +
-                "<ul class=\"collapsible z-depth-0\" data-collapsible=\"accordion\" id=\"fall2016courselist\">";
+                "<ul class=\"collapsible z-depth-0\" data-collapsible=\"accordion\" id=\"" + semester + year + "courselist\">";
     }
 
     public String semesterCardEnd(int credits, String year, String semester)

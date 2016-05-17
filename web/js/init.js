@@ -9,7 +9,7 @@
 $(document).ready(function() {
   $('.modal-trigger').leanModal(
       {
-        complete: function() { location.reload() } // Callback for Modal close
+        //complete: function() { location.reload() } // Callback for Modal close
       }
   );
 });

@@ -1,6 +1,6 @@
 <%@ page import="java.util.LinkedList" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<jsp:useBean id="myUtil" class="ontrack.Utilities" scope="session"></jsp:useBean>
+<jsp:useBean id="myUtil" class="ontrack.Utilities" scope="session"/>
 
 <%
     LinkedList<String[]> courses = myUtil.getAllCourses();
@@ -69,6 +69,9 @@
                 {
                     var text = response.responseText;
                     console.log(text);
+                    var map = JSON.parse(text);
+                    addClassToSemester(semester+year+'courselist', map['name'], map['department'], number,
+                            map['credits'], map['description'], 'course'+(Math.floor(Math.random() * 999999) + 99  ));
                 }
             }
         });
@@ -76,7 +79,7 @@
         console.log(arg);
         arg.classList.add("disabled");
 
-    };
+    }
 
 </script>
 <style>

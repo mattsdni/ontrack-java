@@ -15,6 +15,7 @@ import sun.awt.image.ImageWatched;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.sql.*;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -834,6 +835,35 @@ public class Utilities {
             return null;
         }
         return result;
+    }
+
+    public HashMap<String, String> getCourseInfo(String dept, String num)
+    {
+        ResultSet rset = null;
+        String result = "";
+        String sql = null;
+        if (conn == null)
+            openDB();
+
+        try {
+            // create a Statement and an SQL string for the statement
+            sql = "select * from course where department = '" + dept + "' and course_number = '" + num + "'";
+
+            Statement stmt = conn.createStatement();
+            rset = stmt.executeQuery(sql);
+            rset.next();
+            HashMap<String, String> map = new HashMap<String, String>();
+            map.put("department", rset.getString("department"));
+            map.put("course_number", rset.getString("course_number"));
+            map.put("course_number", rset.getString("course_number"));
+            map.put("name", rset.getString("name"));
+            map.put("credits", rset.getString("credits"));
+            map.put("credits", rset.getString("credits"));
+            map.put("description", rset.getString("description"));
+            return map;
+        } catch (SQLException e) {
+            return null;
+        }
     }
 
 

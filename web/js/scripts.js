@@ -11,32 +11,28 @@ function removeClassFromSemester(class_name, semester_name) {
 }
 
 //Adds a class to a semester
-function addClassToSemester(class_name, semester_name) {
-	var course_select = 'course' + class_name;
-	var course_node = document.getElementById(course_select);
-
-	//make a copy (so the course isn't removed from the course list)
-	var course = course_node.cloneNode(true);
+function addClassToSemester(semesterCardId, title, dept, course_num, credits, description, courseId) {
+	var course = document.createElement("li");
 	
 	//update id
-	course.id += semester_name;
+	course.id = courseId;
 
-	var semester_node = document.getElementById(semester_name+"courselist");
+	//fill up the course with nutritious content
+	var html = '<div class="collapsible-header active">' +
+		'<div class="collapsible-header-title-left ' + dept + '">' + dept + ' ' + course_num + '</div>' +
+		'<div class="collapsible-header-title-right"><span>' + credits + '</span></div>' +
+		'</div>' +
+		'<div class="collapsible-body" style="display: block;">' +
+		'<h5 class="center-text">' + title + '</h5>' +
+		'<p>' + description + '</p>' +
+		'<div class="center-btn">' +
+		'<a class="waves-effect waves-light btn red" onclick="deleteCourse(this.parentElement.parentElement.parentElement.id)">Remove</a>' +
+		'</div></div>';
 
-	//get button
-	var button = course.getElementsByClassName("collapsible-body")[0].getElementsByClassName("center-btn")[0].getElementsByClassName("btn")[0];
-	
-	//set button to 'remove'
-	button.textContent = "Remove";
-	
-	//set button color to red
-	button.className += " red";
-	
-	//set button functionality
-	button.setAttribute('onclick','removeClassFromSemester("csce144", "fall2016")');
+	course.innerHTML = html;
 
 	//add to semester course list
-	semester_node.appendChild(course);
+	document.getElementById(semesterCardId).appendChild(course);
 }
 
 function highlightSemester(semester_name) {
