@@ -534,6 +534,7 @@ public class Utilities {
             {
                 for (int i = 1; i <= n; i++)
                     data += (r.getString(i) + " ");
+                data += "\n";
             }
         }
         catch (SQLException e)

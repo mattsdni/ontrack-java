@@ -29,6 +29,7 @@
     if (id != null)
     {
         results = util.evaluateSchedule(id);
+        System.out.println(results);
     }
 %>
 <h1>Evaluate Schedule</h1>
@@ -49,25 +50,25 @@
             else
             {
                 p = s.split("\n");
-                int i = 1;
+                //int i = 1;
                 out.print("<ul class=\"collection\">");
                 for(String x : p) {
-                    switch (i) {
-                        case 0:
-                            i++;
-                            if(!x.contains("CSCE") && !x.contains("department"))
-                            {
-                                out.print("<h5>" + x + "</h5>");
-                            }
-                            break;
-                        case 1:
-                            i++;
-                            break;
-                        default:
+//                    switch (i) {
+//                        case 0:
+//                            i++;
+//                            if(!x.contains("CSCE") && !x.contains("department"))
+//                            {
+//                                out.print("<h5>" + x + "</h5>");
+//                            }
+//                            break;
+//                        case 1:
+//                            i++;
+//                            break;
+//                        default:
                             out.print("<li class=\"collection-item\">" + x + "</li>");
-                            i++;
-                            break;
-                    }
+//                            i++;
+//                            break;
+                    //}
                 }
 
                 out.print("</ul>");
