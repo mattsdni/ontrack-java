@@ -6,7 +6,7 @@
     <br><br>
     <h1 class="header center">Take Control</h1>
     <div class="row center">
-      <h5 class="header col s12 light">OnTrack is a modern tool that helps students and advisors plan for a college degree</h5>
+      <h5 class="header col s12 light">OnTrack is a responsive web app that helps students and advisors plan a college degree</h5>
     </div>
     <div class="row center">
       <a href="#login" id="download-button" class="btn-large waves-effect waves-light btn modal-trigger light-blue">Login</a>
@@ -112,7 +112,7 @@
           <h2 class="center light-blue-text"><i class="material-icons">navigation</i></h2>
           <h5 class="center">Plan your degree</h5>
 
-          <p class="light">Use On Track to plan out your college degree. Make an account and start staying on track.</p>
+          <p class="light">Use On Track to plan out your college degree. Make an account and create your first schedule today!</p>
         </div>
       </div>
       <div class="col s12 m4">
@@ -120,7 +120,8 @@
           <h2 class="center light-blue-text"><i class="material-icons">group</i></h2>
           <h5 class="center">Connect with your advisor</h5>
 
-          <p class="light">Add an advisor and keep them up to date. *Future updates will allow advisors to interact with student schedules. </p>
+          <p class="light">Add an advisor and keep them up to date with your acedemic progress.
+            <br>*Future updates will allow advisors to interact with student schedules. </p>
         </div>
       </div>
       <div class="col s12 m4">

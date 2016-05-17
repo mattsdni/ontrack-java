@@ -5,7 +5,8 @@
         <div class="row">
             <div class="col l6 s12">
                 <h5 class="white-text">About Us</h5>
-                <p class="grey-text text-lighten-4">We are a team of college students working to achieve a Bachelors of Science Degree in Computer Science. </p>
+                <p class="grey-text text-lighten-4">We are a team of college students working to achieve a Bachelors of Science Degree in Computer Science.
+                This project is part of CSCE 367 at Pacific Lutheran University taught by Dr. Kenneth Blaha.</p>
 
 
             </div>

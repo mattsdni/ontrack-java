@@ -97,7 +97,15 @@
 
             out.print(semesterCardCourse(title, dept, course_num, credits, description, courseCount));
         }
-        out.print(semesterCardEnd(semester_credits, current_year, current_semester));
+        if (current_semester.equals("SPRING"))
+        {
+            String tmp_year = ""+(1+(Integer.parseInt(current_year)));
+            out.print(semesterCardEnd(semester_credits, tmp_year, current_semester));
+        }
+        else
+        {
+            out.print(semesterCardEnd(semester_credits, current_year, current_semester));
+        }
 
         if (current_semester.equals("SPRING"))
         {
