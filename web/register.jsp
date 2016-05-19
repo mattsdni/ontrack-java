@@ -22,10 +22,6 @@
                 session.setAttribute("type", "student"); // TODO: set this dynamically
                 response.sendRedirect("home.jsp");
             }
-            else
-            {
-                //email address already in use
-            }
         }
 
     }
