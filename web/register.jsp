@@ -6,8 +6,6 @@
 <jsp:useBean id="util" class="ontrack.Utilities" scope="session"/>
 
 <%
-
-
     if(request.getMethod().equals("POST"))
     {
         String name = request.getParameter("name");

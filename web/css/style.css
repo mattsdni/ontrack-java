@@ -7,7 +7,9 @@
  */
 
 
-
+.modal {
+    max-height: 80%;
+}
 
 .icon-block {
     padding: 0 15px;

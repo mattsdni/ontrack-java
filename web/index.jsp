@@ -141,4 +141,8 @@
 
   </div>
 
+  <script>
+
+  </script>
+
 <jsp:include page="footer.jsp" />
